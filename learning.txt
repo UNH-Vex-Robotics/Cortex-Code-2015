@@ -1,0 +1,54 @@
+Things to know:
+    Types
+        Builtin types:
+            int
+            char
+            float / double
+        Arrays
+        Signed / Unsigned
+        Structs
+    Read controller input
+        Joystick
+        Button
+    Setting output
+        Motors
+        Relays / pneumatics
+    Reading input
+        Analog
+        Digital
+    Functions
+        I will save you time to remember a few of these. Some time functions are useful for example.
+        At the least, know where to find information about functions
+    Code formatting / style rules
+        Comments
+            Comment anything non-trivial
+            Comment anything you find useful or want to remmeber
+            One line comments
+                // go like this
+            Multiline comments
+                /* start like this
+                and end like so */
+        INDENTATION
+            Indent your code properly
+            This is important. Very important. You WILL get called out if you don't indent your code consistently.
+            I dont care if you do 2, 3, or 4 spaces per indentation level, or even if you use tabs. But do so consistently.
+            Be consistent.
+
+Example of user defined type / struct
+
+You have a couple sets of motors on the robot. Each set of motors has a pair of shaft encoders. Say, you want a better way to keep track of this dependent system.
+
+struct ControlledMotor {
+    int motorspeed;
+    int encoderspeed;
+    float rpm;
+};
+
+Then, it becomes a simple matter to reference these sets.
+
+ControlledMotor leftDriveMotor;
+ControlledMotor rightDriveMotor;
+
+float speed = (rightDriveMotor.encoderspeed + rightDriveMotor.encoderspeed) / 2.0);
+
+leftDriveMotor.motorspeed = 100;
