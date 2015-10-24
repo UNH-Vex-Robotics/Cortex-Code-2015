@@ -10,7 +10,7 @@ task main()
 	{
 		motor[wheelR] = vexRT[Ch2];
 		motor[wheelL] = vexRT[Ch3];
-		motor[arm] = vexRT[Ch1];
-		motor[claw] = vexRT[Btn5U]*127 - vexRT[Btn5D]*127;
+		motor[arm] = vexRT[Btn8U]*50 - vexRT[Btn8D]*50;
+		motor[claw] = vexRT[Btn5U]*125 - vexRT[Btn5D]*125;
 	}
 }
