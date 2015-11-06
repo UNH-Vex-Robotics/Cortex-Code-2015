@@ -1,0 +1,17 @@
+BBB code
+    - hold state of things (also holding a few/bunch of previous states)
+    - data structures for holding different sensors / motors etc
+    - logging
+    - autonomous and driver robot control
+    - robot control architecture (command based? threads? etc)
+
+UART
+    - how to sending / receiving data (BBB & cortex)
+    - our protocol for sending the data structures
+
+Cortex
+    - Forwarding data and configuration
+        - motors in port x,y,z; controller input; sensor type x in port y, corresponds to motor z
+
+Other code
+    - plotting logs
