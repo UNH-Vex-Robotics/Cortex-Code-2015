@@ -8,9 +8,9 @@ task main()
 {
 	while(true)
 	{
-			motor[FrontDriver] = vexRT[Ch3];
-			motor[FrontPassanger] = vexRT[Ch2];
-			motor[RearPassanger] = vexRT[Ch2];
-			motor[RearDriver] = vexRT[Ch3];
+		motor[FrontDriver] = vexRT[Ch3];
+		motor[FrontPassanger] = vexRT[Ch2];
+		motor[RearPassanger] = vexRT[Ch2];
+		motor[RearDriver] = vexRT[Ch3];
 	}
 }

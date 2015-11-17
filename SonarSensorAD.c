@@ -17,7 +17,7 @@ task main()
 		//-----------------------------------------------------------------------------------------------------------------------
 
 		motor[FrontDriver] = front - turn;
-	  motor[RearDriver] = front - turn;
+	  	motor[RearDriver] = front - turn;
 		motor[FrontPassanger] = front + turn;
 		motor[RearPassanger] = front + turn;
 
