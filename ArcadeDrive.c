@@ -6,17 +6,18 @@
 
 task main()
 {
+	while(true)
+	{
 		//Forward and Backward movement "RIGHT joystick" VERTICAL
-		motor[FrontDriver] = vexRT[Ch2];
-		motor[RearDriver] = vexRT[Ch2];
-		motor[FrontPassanger] = vexRT[Ch2];
-		motor[RearPassanger] = vexRT[Ch2];
+		short front = - vexRT[Ch2];
+		short turn = - vexRT[Ch1];
 
-		//LEFT movement "RIGHT joystick" HORIZONTAL
-		motor[FrontDriver] = vexRT[Ch3];
-		motor[FrontPassanger] = -vexRT[Ch3];
-		motor[RearDriver] = vexRT[Ch3];
-		motor[RearPassanger] = -vexRT[Ch3];
+		//-----------------------------------------------------------------------------------------------------------------------
 
+		motor[FrontDriver] = front - turn;
+	  motor[RearDriver] = front - turn;
+		motor[FrontPassanger] = front + turn;
+		motor[RearPassanger] = front + turn;
 
+	}
 }
