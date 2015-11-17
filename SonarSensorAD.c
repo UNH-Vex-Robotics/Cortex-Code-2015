@@ -1,3 +1,4 @@
+#pragma config(Sensor, dgtl8,  sonar1,         sensorSONAR_inch)
 #pragma config(Motor,  port1,           RearDriver,    tmotorVex393_HBridge, openLoop, reversed)
 #pragma config(Motor,  port8,           RearPassanger, tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port9,           FrontPassanger, tmotorVex393_MC29, openLoop, reversed)
@@ -9,8 +10,9 @@ task main()
 	while(true)
 	{
 		//Forward and Backward movement "RIGHT joystick" VERTICAL
-		short front = - vexRT[Ch2];
-		short turn = - vexRT[Ch1];
+		int front = - vexRT[Ch2];
+		int turn = - vexRT[Ch1];
+		int sonar = SensorValue( sonar1 );
 
 		//-----------------------------------------------------------------------------------------------------------------------
 
@@ -18,6 +20,20 @@ task main()
 	  motor[RearDriver] = front - turn;
 		motor[FrontPassanger] = front + turn;
 		motor[RearPassanger] = front + turn;
+
+		// Checking to see if the sensor is closer than 27 inchs.
+
+		if( sonar <= 12 ){
+			front = 127;
+
+			motor[FrontDriver] = front - turn;
+			motor[RearDriver] = front - turn;
+			motor[FrontPassanger] = front + turn;
+			motor[RearPassanger] = front + turn;
+			wait1Msec(500);
+
+			int front = - vexRT[Ch2];
+		}
 
 	}
 }
