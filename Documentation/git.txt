@@ -1,0 +1,60 @@
+
+Terminology:
+    Repo / Repository
+        A repository (if you dont know what it means, look it up) that commits can be pushed and pulled from.
+    Commit
+        A checkpoint of code. These are identified by a hash (ie b70153decaa40d606582c858a5a9727d64e39499).
+    Branch
+        A series of commits (checkpoints). These are used to separate various bits of work; one feature might be added in one branch, one bug fix in another etc.
+    HEAD
+        The most recent commit of the current branch.
+    Staging
+        This is the "staging" area between your live code changes and a commit. The basic process involves editing code, adding it to staging, editing code, adding it to staging, etc, then committing what is in staging.
+    master
+        The master branch. In other version control systems this is sometimes called trunk. This branch is to be kept stable. All development is done in other branches, and merged back to master (maybe into a few other branches on the way).
+    Merging
+        Combining two or more commits or branches. This is almost always done with branches. As tasks get completed, branches get merged back together.
+    Remote
+        The location of another repository (that has the same project). These are specified by a URL (look it up). Git is a distributed version control, so you can have many different remotes.
+    origin
+        This is where we all push and pull code from. (ie the 'origin' where everything comes from).
+
+General Flow:
+    On a working branch
+    >--v
+    | >--v
+    | | Edit some files
+    | | Add to staging (git add <files>)
+    | ^ < repeat
+    | make a checkpoint (git commit)
+    | publish it (git push)
+    ^ <repeat
+
+Usefull Git commands:
+
+git status
+    This is your favorite command. It will tell you information about your current state (ie. branch, working changes etc.)
+git clone
+    This clones a repository. It will only be used to set up new repositories
+git pull
+    Pull commits from a branch. This merges onto your branch. It is roughly equivilent to "git fetch" and "git merge" together.
+git push
+    This will push your commits to a repository.
+    git push -u origin <branch>
+        This will specify a repository (here called origin), and a remote branch. The "-u" option will set this relation to be automatic so whenever you run "git push", it will automatically push to this remote:branch. This only has to be run once for this effect to be enabled.
+git branch
+    Lists branches.
+git checkout <head>
+    Checkout to a commit or branch.
+    git checkout -b i<branch>
+        Create a new branch, starting from the commit you are currently on.
+git add
+    Add files to staging.
+git rm
+    Remove files from staging.
+git commit -m "Commit message explaining what changes you made"
+    Takes all changes in staging and packages up a commit with the specified message.
+git log
+    Shows a log of commits.
+    git log --graph --oneline --pretty
+        Shows a different view of the same information.
