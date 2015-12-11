@@ -8,15 +8,21 @@
 #define LEFT 0
 #define RIGHT 1
 
+#define STRAIGHT  50
+#define TURN_HIGH 60
+#define TURN_LOW  30
+#define SPIN_HIGH 50
+#define SPIN_Low   0
+
 int lineout[2][8] = {
-    {50,  0}, // 0 0 0
-    {60, 30}, // 0 0 1
-    {50, 50}, // 0 1 0
-    {30, 50}, // 0 1 1
-    {30, 60}, // 1 0 0
-    {50,  0}, // 1 0 1
-    {30, 60}, // 1 1 0
-    {50,  0}, // 1 1 1
+	{SPIN_HIGH,  SPIN_LOW},  // 0 0 0
+	{TURN_HIGH,  TURN_LOW},  // 0 0 1
+	{STRAIGHT,   STRAIGHT},  // 0 1 0
+	{TURN_LOW,   STRAIGHT},  // 0 1 1
+	{TURN_LOW,   TURN_HIGH}, // 1 0 0
+	{SPIN_HIGH,  SPIN_LOW},  // 1 0 1
+	{TURN_LOW,   TURN_HIGH}, // 1 1 0
+	{SPING_HIGH, SPING_LOW}, // 1 1 1
 };
 
 task main() {
