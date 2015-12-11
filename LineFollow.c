@@ -12,7 +12,7 @@
 #define TURN_HIGH 60
 #define TURN_LOW  30
 #define SPIN_HIGH 50
-#define SPIN_Low   0
+#define SPIN_LOW   0
 
 int lineout[2][8] = {
 	{SPIN_HIGH,  SPIN_LOW},  // 0 0 0
@@ -22,14 +22,14 @@ int lineout[2][8] = {
 	{TURN_LOW,   TURN_HIGH}, // 1 0 0
 	{SPIN_HIGH,  SPIN_LOW},  // 1 0 1
 	{TURN_LOW,   TURN_HIGH}, // 1 1 0
-	{SPING_HIGH, SPING_LOW}, // 1 1 1
+	{SPIN_HIGH,  SPIN_LOW},  // 1 1 1
 };
 
 task main() {
 	while(true) {
-                int lines = (SensorValue(lfLeft) < 500) << 2 | (SensorValue(lfCenter) < 500) << 1 | (SensorValue(lfRight) < 500);
+		int lines = (SensorValue(lfLeft) < 500) << 2 | (SensorValue(lfCenter) < 500) << 1 | (SensorValue(lfRight) < 500);
 
-		motor[leftMotor]   = lineOut[LEFT][lines];
-		motor[rightMotor]  = lineOut[RIGHT][lines];
+		motor[leftMotor]  = lineout[LEFT][lines];
+		motor[rightMotor] = lineout[RIGHT][lines];
 	}
 }
