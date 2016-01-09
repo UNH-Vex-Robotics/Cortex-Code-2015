@@ -15,3 +15,5 @@ Big Bot
 subsystem    sensors                  motors      control                           notes
 shooter      6 integrated encoders    6 motors    ramp up, ramp down, fire, etc.    lots of different states involved here
 lifter       2 limit sensors          ???         meet criteria, go!                this needs to be able to reverse its-self, and then redo everything again.
+
+ball feed system
