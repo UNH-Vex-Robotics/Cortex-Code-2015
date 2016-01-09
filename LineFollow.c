@@ -1,5 +1,5 @@
-#pragma config(Motor,  port10, leftMotor,    tmotorVex393_HBridge, openLoop, reversed)
-#pragma config(Motor,  port1,  rightMotor,   tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port10, leftMotor,    tmotorVex393_HBridge, openLoop, openLoop)
+#pragma config(Motor,  port1,  rightMotor,   tmotorVex393_HBridge, openLoop, reversed)
 #pragma config(Sensor, in1,    lfCenter,          sensorLineFollower)
 #pragma config(Sensor, in2,    lfRight,          sensorLineFollower)
 #pragma config(Sensor, in3,    lfLeft,          sensorLineFollower)
