@@ -1,0 +1,17 @@
+Small Bot
+----------
+
+subsystem        sensors                  motors      control                          notes
+--------------------------------------------------------------------------------------------
+drive            2 integrated encoders    6 drive     tank drive                       none
+intake           none                     2 motors    bi-directional manual control    we need to find a good speed to run this at (and then not change it)
+pusher           2 encoders               2 motors    automated push-out, return       calabration also needed, encoders for keeping the things parallel
+movement         3 line sensors           none        a line-following 'mode'          this is probably mainly for autonomous
+latch            2 limit sensors          ???         none?                            this is aimed at a mechanical solution, but feedback is good. the small bot may also assist in lifting itself
+ball detector    N limit switches         none        none                             this is primarily for feedback in autonomous
+
+Big Bot
+----------
+subsystem    sensors                  motors      control                           notes
+shooter      6 integrated encoders    6 motors    ramp up, ramp down, fire, etc.    lots of different states involved here
+lifter       2 limit sensors          ???         meet criteria, go!                this needs to be able to reverse its-self, and then redo everything again.
