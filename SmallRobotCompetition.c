@@ -1,6 +1,40 @@
+
+/*
+
+ Note:
+    the channels 1-5 are on one breaker channel, 6-10 are on another
+
+ Drive motor read in:
+    i²C1 -> right drive
+    i²C2 -> left drive
+
+ Traverse motors (power expander)
+    port 1  -> right
+    port 10 -> left
+
+ Feeder motors (power expander)
+    port 2  -> right
+    port 9  -> left
+
+ Drive motors
+    port 3 -> right 1
+    port 4 -> right 2
+    port 5 -> right 3
+    port 6 -> left 1
+    port 7 -> left 2
+    port 8 -> left 3
+
+ Analog battery power from power expander
+    analog input port 1
+
+*/
+
+
+
+
 #pragma platform(VEX)
 
-//Competition Control and Duration Settings
+// Competition Control and Duration Settings
 #pragma competitionControl(Competition)
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
