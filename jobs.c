@@ -44,6 +44,7 @@ void jobhandler_startcommand(Command *c){
     ll_insertbefore(jl_tail, c);
     c->starttime = nSysTime;
     c->start(c);
+    c->data = data;
     ++jl_count;
 }
 

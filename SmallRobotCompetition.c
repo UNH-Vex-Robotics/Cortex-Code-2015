@@ -69,13 +69,7 @@ void pre_auton()
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-task autonomous()
-{
-  // .....................................................................................
-  // Insert user code here.
-  // .....................................................................................
-
-	AutonomousCodePlaceholderForTesting();  // Remove this function call once you have "real" code.
+task autonomous() {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -87,19 +81,24 @@ task autonomous()
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-task usercontrol()
-{
-	// User control code here, inside the loop
+task usercontrol() {
 
-	while (true)
-	{
-	  // This is the main execution loop for the user control program. Each time through the loop
-	  // your program should update motor + servo values based on feedback from the joysticks.
+        /* This is the process of creating a job */
+	testjob1_data duration = { .duration = 2000 };
+	Command testjob1 = {
+            .name = "testjob1",
+            .starttime = nSysTime,
+            .start = testjob1_start,
+            .update = testjob1_update,
+            .stop = testjob1_stop,
+            .data = &duration,
+            .freecmd = 0
+        };
+	jobhandler_startcommand(&testjob1);
 
-	  // .....................................................................................
-	  // Insert user code here. This is where you use the joystick values to update your motors, etc.
-	  // .....................................................................................
+	/* You shouldn't have to change anything below here */
 
-	  UserControlCodePlaceholderForTesting(); // Remove this function call once you have "real" code.
+	while (true) {
+		jobhandler_tick();
 	}
 }

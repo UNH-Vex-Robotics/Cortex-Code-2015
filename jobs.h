@@ -4,13 +4,13 @@ typedef int commandstatus;
 typedef unsigned long time;
 
 typedef struct {
-    char *name;
+    const char *name;
     time starttime;
     jobstatus (*start)(Command *);
     jobstatus (*update)(Command *);
     jobstatus (*stop)(Command *);
     void *data;
-    commandstatus status;
+    int freecmd;
 } Command;
 
 const jobstatus JOB_NORMAL          = 1;
