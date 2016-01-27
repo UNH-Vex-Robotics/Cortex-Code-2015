@@ -1,13 +1,13 @@
 // stuff for line sensor
 typedef unsigned int linestate;
-const int LINE_NONE = 0;
-const int LINE_NONE = 0;
-const int LINE_NONE = 0;
-const int LINE_NONE = 0;
-const int LINE_NONE = 0;
-const int LINE_NONE = 0;
-const int LINE_NONE = 0;
-const int LINE_NONE = 0;
+const int LINE_NONE   = 0;
+const int LINE_RIGHT  = 1;
+const int LINE_MIDDLE = 2;
+const int LINE_LEFT   = 4;
+const int LINE_LM     = 6;
+const int LINE_RM     = 3;
+const int LINE_LR     = 5;
+const int LINE_LRM    = 7;
 
 const unsigned int LINE_THRESH = 700;
 

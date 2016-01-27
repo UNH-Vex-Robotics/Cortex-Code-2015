@@ -29,7 +29,7 @@ int bumperswitch_get_left(){ return SensorValue(); }
 int bumperswitch_get_right(){ return SensorValue(); }
 
 linestate linetracker_get(){
-	return SensorValue(RightLine)  > LINE_THREH |
-	       SensorValue(MiddleLine) > LINE_THREH |
-	       SensorValue(LeftLine)   > LINE_THREH;
+	return (SensorValue(RightLine)  > LINE_THREH) |
+	       (SensorValue(MiddleLine) > LINE_THREH) << 1 |
+	       (SensorValue(LeftLine)   > LINE_THREH) << 2;
 }
