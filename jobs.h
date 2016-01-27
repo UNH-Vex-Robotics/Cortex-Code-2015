@@ -13,14 +13,9 @@ typedef struct {
     int freecmd;
 } Command;
 
-const jobstatus JOB_NORMAL          = 1;
-const jobstatus JOB_DONE            = 2;
-const jobstatus JOB_CLEANUP_COMMAND = 4;
-
-const commandstatus COMMAND_RUNNING       = 1;
-const commandstatus COMMAND_STOPPED       = 2;
-const commandstatus COMMAND_WAITING_INPUT = 4;
-const commandstatus COMMAND_WAITING_TIME  = 8;
+const jobstatus JOB_NORMAL = 1;
+const jobstatus JOB_DONE   = 2;
 
 void jobhandler_tick();
 void jobhandler_startcommand(Command *c);
+void jobhandler_killall();

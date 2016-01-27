@@ -3,9 +3,9 @@
 #pragma config(Sensor, in6,    RightLine,      sensorLineFollower)
 #pragma config(Sensor, in7,    MiddleLine,     sensorLineFollower)
 #pragma config(Sensor, in8,    LeftLine,       sensorLineFollower)
-#pragma config(Sensor, dgtl4,  EncoderRight,   sensorQuadEncoder)
-#pragma config(Sensor, dgtl6,  EncoderLeft,    sensorQuadEncoder)
-#pragma config(Sensor, dgtl12, Limit,          sensorTouch)
+#pragma config(Sensor, dgtl4,  PusherEncoderRight,   sensorQuadEncoder)
+#pragma config(Sensor, dgtl6,  PusherEncoderLeft,    sensorQuadEncoder)
+#pragma config(Sensor, dgtl12, PusherHomeLimit,          sensorTouch)
 #pragma config(Sensor, I2C_1,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Sensor, I2C_2,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Motor,  port1,           RightPush,     tmotorVex393_HBridge, openLoop)
@@ -57,10 +57,16 @@
 
 // Competition Control and Duration Settings
 #pragma competitionControl(Competition)
-#pragma autonomousDuration(20)
-#pragma userControlDuration(120)
+#pragma autonomousDuration(45)
+#pragma userControlDuration(75)
 
 #include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
+
+#include "smallbot_control.h"
+#include "jobs.h"
+#include "emptyballs.h"
+#include "testjob1.h"
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -108,7 +114,7 @@ task usercontrol() {
 	testjob1_data duration = { .duration = 2000 };
 	Command testjob1 = {
             .name = "testjob1",
-            .starttime = nSysTime,
+            .starttime = nSysTime, // NOTE: THIS DOES NOT WORK!!!! FIXME
             .start = testjob1_start,
             .update = testjob1_update,
             .stop = testjob1_stop,
@@ -117,9 +123,32 @@ task usercontrol() {
         };
 	jobhandler_startcommand(&testjob1);
 
+        /* This is the process of creating a job */
+	testjob1_data duration = { .duration = 2000 };
+        emptyballs_data ebd;
+	Command emptyballs = {
+            .name = "emptyballs on trigger 7r",
+            .starttime = nSysTime, // NOTE: see above. FIXME
+            .start  = emptyballs_start,
+            .update = emptyballs_update,
+            .stop   = emptyballs_stop,
+            .data   = &ebd,
+            .freecmd = 0
+        };
+
+
 	/* You shouldn't have to change anything below here */
 
 	while (true) {
 		jobhandler_tick();
+		if(vexRT[Btn7R]) // This should be done in the userinput command (NYI/FIXME)
+			jobhandler_startcommand(&emptyballs);
 	}
 }
+
+
+// silly robot c; not being able to do linking...
+#include "smallbot_control.c"
+#include "jobs.c"
+#include "emptyballs.c"
+#include "testjob1.c"

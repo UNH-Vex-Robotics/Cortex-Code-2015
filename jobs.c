@@ -1,5 +1,3 @@
-#include "jobs.h"
-
 typedef struct {
     Command *cmd;
     ll_node *prev;
@@ -21,15 +19,16 @@ void jobhandler_tick(){
     time cyclestart = nSysTime;
 
     while(node != NULL){
-        jobstatus ret = node->cmd->update(cmd);
+        ll_node *t = node;
+        node = node->next;
+        jobstatus ret = t->cmd->update(cmd);
         if(ret & JOB_DONE){
             jobstatus done = node->cmd->stop();
             if(done & JOB_CLEANUP_COMMAND)
-                free(node->cmd);
-            ll_delete(node);
+                free(t->cmd);
+            ll_delete(t);
             --jl_count;
         }
-        node = node->next;
     }
 
     time cycleend = nSysTime;
@@ -46,6 +45,23 @@ void jobhandler_startcommand(Command *c){
     c->start(c);
     c->data = data;
     ++jl_count;
+}
+
+
+void jobhandler_killall(){
+    ll_node *node = jl_head;
+
+    time cyclestart = nSysTime;
+
+    while(node != NULL){
+        ll_node *t = node;
+        node = node->next;
+        jobstatus done = t->cmd->stop();
+        if(done & JOB_CLEANUP_COMMAND)
+            free(t->cmd);
+        ll_delete(t);
+        --jl_count;
+    }
 }
 
 
@@ -70,5 +86,3 @@ void ll_insertbefore(ll_node *before, Command *c){
     if(before->prev) before->prev->next = newnode;
     before->prev = newnode;
 }
-
-
