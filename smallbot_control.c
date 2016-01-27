@@ -11,8 +11,27 @@ void motor_set(int left, int right){
 }
 
 void intake_set(int speed){
+	motor(RightIntake) = speed;
+	motor(LeftIntake)  = speed;
 }
 
 void pusher_set(int speed){
+	motor(RightPush) = speed;
+	motor(LeftPush)  = speed;
 }
 
+int encoder_get(){
+	SensorValue(EncoderLeft);
+	SensorValue(EncoderRight);
+}
+
+int bumperswitch_get(){
+	SensorValue(
+	SensorValue(
+}
+
+int linetracker_get(){
+	SensorValue(RightLine);
+	SensorValue(MiddleLine);
+	SensorValue(LeftLine);
+}
