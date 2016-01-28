@@ -25,51 +25,16 @@
 
 // Originall made by Mike L
 
-task main()
-{
-while (1==1)
-{
-	motor(RightFront) = vexRT(Ch2);
-	motor(RightMiddle) = vexRT(Ch2);
-	motor(RightRear) = vexRT(Ch2);
+task main() {
+while (true) {
+	// Drive motors
+	motor_set(vexRT[Ch2], vexRT[Ch3]);
 
-	motor(LeftFront) = vexRT(Ch3);
-	motor(LeftMiddle) = vexRT(Ch3);
-	motor(LeftRear) = vexRT(Ch3);
+	// Pusher
+	pusher_set(vexRT[Btn5U] * PUSHER_OUT_SPEED + vexRT[Btn5D] * PUSHER_IN_SPEED);
 
-	if (vexRT[Btn5U] == 1)
-	{
-		motor(RightPush) = 100;
-		motor(LeftPush) = 100;
-	}
-	else if (vexRT[Btn5D] == 1)
-	{
-		motor(RightPush) = -100;
-		motor(LeftPush) = -100;
-	}
-	else
-	{
-		motor(RightPush) = 0;
-		motor(LeftPush) = 0;
-	}
-
-
-	if (vexRT[Btn6U] == 1)
-	{
-		motor(RightIntake) = 100;
-		motor(LeftIntake) = 100;
-	}
-	else if (vexRT[Btn6D] == 1)
-	{
-		motor(RightIntake) = -100;
-		motor(LeftIntake) = -100;
-	}
-	else
-	{
-		motor(RightIntake) = 0;
-		motor(LeftIntake) = 0;
-	}
-
+	// Intake
+	intake_set(vexRT[Btn6U] * INTAKE_IN_SPEED + vexRT[Btn6D] * INTAKE_OUT_SPEED);
 
 }
 }
