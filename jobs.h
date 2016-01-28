@@ -4,7 +4,7 @@ typedef int commandstatus;
 typedef unsigned long time;
 
 typedef struct {
-    const char *name;
+    char *name;
     time starttime;
     jobstatus (*start)(Command *);
     jobstatus (*update)(Command *);

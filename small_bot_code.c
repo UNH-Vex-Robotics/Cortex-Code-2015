@@ -4,7 +4,10 @@
 #pragma config(Sensor, in7,    MiddleLine,     sensorLineFollower)
 #pragma config(Sensor, in8,    LeftLine,       sensorLineFollower)
 #pragma config(Sensor, dgtl4,  EncoderRight,   sensorQuadEncoder)
+// encoder right alternate channel on dgtl5
 #pragma config(Sensor, dgtl6,  EncoderLeft,    sensorQuadEncoder)
+// encoder left alternate channel on dgtl7
+// (left push) 10 and (right push) 11 are rear buttons
 #pragma config(Sensor, dgtl12, Limit,          sensorTouch)
 #pragma config(Sensor, I2C_1,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Sensor, I2C_2,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
