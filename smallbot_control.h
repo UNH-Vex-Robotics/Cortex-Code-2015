@@ -40,4 +40,3 @@ int pusher_get_home_switch();
 
 int bumperswitch_get_left();
 int bumperswitch_get_right();
-
