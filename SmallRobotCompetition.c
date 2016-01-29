@@ -43,20 +43,56 @@ void pre_auton() {
 }
 
 task autonomous() {
+
+	int left = motor_get_left_encoder;
+	int right = motor_get_right_encoder;
+
+	motor_set(100,100)
+
+	while(true){
+
+		//continuously get encoder values
+		int motor_get_left_encoder();
+		int motor_get_right_encoder();
+	}
+
+	//move forward a set distance
+	while (true){
+		int newleft = motor_get_left_encoder();
+		int newright = motor_get_right_encoder();
+
+		if (((newleft - left) > dist) && ((newright - right) > dist))
+			break;
+	}
+
+	motor_set(0,0);
+}
+
+
+
+
+	//set encoders to 0
+	SensorValue(sensorQuadEncoderOnI2CPort) = 0;
+	SensorValue(sensorQuadEncoderSecondPort) = 0;
+
+	//turn right to empty balls into big bot
+
+
+
 }
 
 task usercontrol() {
-while (true) {
-	// Drive motors
-	motor_set(vexRT[Ch2], vexRT[Ch3]);
+	while (true) {
+		// Drive motors
+		motor_set(vexRT[Ch2], vexRT[Ch3]);
 
-	// Pusher
-	pusher_set(vexRT[Btn5U] * PUSHER_OUT_SPEED + vexRT[Btn5D] * PUSHER_IN_SPEED);
+		// Pusher
+		pusher_set(vexRT[Btn5U] * PUSHER_OUT_SPEED + vexRT[Btn5D] * PUSHER_IN_SPEED);
 
-	// Intake
-	intake_set(vexRT[Btn6U] * INTAKE_IN_SPEED + vexRT[Btn6D] * INTAKE_OUT_SPEED);
+		// Intake
+		intake_set(vexRT[Btn6U] * INTAKE_IN_SPEED + vexRT[Btn6D] * INTAKE_OUT_SPEED);
 
-}
+	}
 }
 
 #include "smallbot_control.c"
