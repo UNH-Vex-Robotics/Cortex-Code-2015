@@ -1,11 +1,12 @@
-void motor_set(int left, int right){
-	motor[RightFront]  = right;
-	motor[RightMiddle] = right;
-	motor[RightRear]   = right;
 
-	motor[LeftFront]  = left;
-	motor[LeftMiddle] = left;
-	motor[LeftRear]   = left;
+void motor_set(int left, int right){
+	motor[RightDriveFront]  = right;
+	motor[RightDriveMiddle] = right;
+	motor[RightDriveRear]   = right;
+
+	motor[LeftDriveFront]  = left;
+	motor[LeftDriveMiddle] = left;
+	motor[LeftDriveRear]   = left;
 }
 
 void intake_set(int speed){
@@ -18,18 +19,18 @@ void pusher_set(int speed){
 	motor[LeftPush]  = speed;
 }
 
-int motor_get_left_encoder(){ return SensorValue(MotorEncoderLeft); }
-int motor_get_right_encoder(){ return SensorValue(MotorEncoderRight); }
+int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMiddle); }
+int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMiddle); }
 
-int pusher_get_left_encoder(){ return SensorValue(PusherEncoderLeft); }
-int pusher_get_right_encoder(){ return SensorValue(PusherEncoderRight); }
+int pusher_get_left_encoder(){ return SensorValue(PusherLeftEncoder); }
+int pusher_get_right_encoder(){ return SensorValue(PusherRightEncoder); }
 int pusher_get_home_switch(){ return SensorValue(PusherHomeLimit); }
 
-int bumperswitch_get_left(){ return SensorValue(); }
-int bumperswitch_get_right(){ return SensorValue(); }
+int bumperswitch_get_left(){ return SensorValue(LeftRearBumper); }
+int bumperswitch_get_right(){ return SensorValue(RightRearBumper); }
 
 linestate linetracker_get(){
-	return (SensorValue(RightLine)  > LINE_THRESH) |
-	       (SensorValue(MiddleLine) > LINE_THRESH) << 1 |
-	       (SensorValue(LeftLine)   > LINE_THRESH) << 2;
+	return (SensorValue(RightLineFollow)  > LINE_THRESH) |
+	       (SensorValue(MiddleLineFollow) > LINE_THRESH) << 1 |
+	       (SensorValue(LeftLineFollow)   > LINE_THRESH) << 2;
 }
