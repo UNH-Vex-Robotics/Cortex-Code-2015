@@ -1,5 +1,5 @@
-#pragma config(Motor,  port10, leftMotor,    tmotorVex393_HBridge, openLoop, reversed)
-#pragma config(Motor,  port1,  rightMotor,   tmotorVex393_MC29, openLoop, reversed)
+ragma config(Motor,  port10, leftMotor,    tmotorVex393_HBridge, openLoop, openLoop)
+#pragma config(Motor,  port1,  rightMotor,   tmotorVex393_HBridge, openLoop, reversed)
 #pragma config(Sensor, in1,    lfCenter,          sensorLineFollower)
 #pragma config(Sensor, in2,    lfRight,          sensorLineFollower)
 #pragma config(Sensor, in3,    lfLeft,          sensorLineFollower)
@@ -22,14 +22,14 @@ int lineout[2][8] = {
 	{TURN_LOW,   TURN_HIGH}, // 1 0 0
 	{SPIN_HIGH,  SPIN_LOW},  // 1 0 1
 	{TURN_LOW,   TURN_HIGH}, // 1 1 0
-	{SPIN_HIGH, SPIN_LOW}, // 1 1 1
+	{SPIN_HIGH,  SPIN_LOW},  // 1 1 1
 };
 
 task main() {
 	while(true) {
-                int lines = (SensorValue(lfLeft) < 500) << 2 | (SensorValue(lfCenter) < 500) << 1 | (SensorValue(lfRight) < 500);
+		int lines = (SensorValue(lfLeft) < 500) << 2 | (SensorValue(lfCenter) < 500) << 1 | (SensorValue(lfRight) < 500);
 
-		motor[leftMotor]   = lineOut[LEFT][lines];
-		motor[rightMotor]  = lineOut[RIGHT][lines];
+		motor[leftMotor]  = lineout[LEFT][lines];
+		motor[rightMotor] = lineout[RIGHT][lines];
 	}
 }
