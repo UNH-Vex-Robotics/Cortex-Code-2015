@@ -6,6 +6,8 @@
 
 // There will be a speed difference w/ load vs w/out
 
+// belt speed should be related to the cycling speed of the shooter
+
 
 const int WINCH_UP_SPEED   =  127;
 const int WINCH_OFF_SPEED  =  0;

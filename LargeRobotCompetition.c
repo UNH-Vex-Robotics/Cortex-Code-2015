@@ -1,4 +1,4 @@
-#pragma config(Sensor, in1,    BallSensor,     sensorReflection)
+#pragma config(Sensor, in2,    BallSensor,     sensorReflection)
 #pragma config(Sensor, dgtl1,  LiftSonar,      sensorNone)
 #pragma config(Sensor, dgtl2,  Shooter,        sensorDigitalOut)
 #pragma config(Sensor, dgtl3,  WinchRaised,     sensorTouch)
@@ -25,6 +25,7 @@
 #pragma userControlDuration(75)
 
 #include "largebot_control.h"
+#include "largebot_autonomy.h"
 
 void pre_auton() {
 	// Set bStopTasksBetweenModes to false if you want to keep user created tasks running between
@@ -37,8 +38,9 @@ task autonomous() {
 }
 
 task usercontrol() {
+	shooter_motor_set(80);
 	while (true) {
-		shooter_motor_set(vexRT[Ch3]);
+		auto_shoot();
 		// 6u -> shooter
 		/*
 		7u shooter start
@@ -52,8 +54,8 @@ task usercontrol() {
 		5u toggle belts + intake on
 		5d toggle belts + intake reverse
 		*/
-		;
 	}
 }
 
 #include "largebot_control.c"
+#include "largebot_autonomy.c"
