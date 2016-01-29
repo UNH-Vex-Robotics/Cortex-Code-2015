@@ -34,11 +34,61 @@ void pre_auton() {
 }
 
 task autonomous() {
+		shooter_motor_set(SHOOTER_SPEED);
+		belt_set(BELT_SPEED); //Belt on
+		intake_set(INTAKE_SPEED); // Intake on
+	while (true) {
+
+
+		if( is_ball_ready()== 0 ) //If no ball in place
+		{
+			set_pneumatics(SHOOTER_IN); //Don't shoot
+		}
+		else //If ball in place
+		{
+			set_pneumatics(SHOOTER_OUT); //Shoot
+		}
+
+		if(smallbot_lift_ready()==1) //If Small Bot in place
+		{
+			winch_down_up(); //Extend winch to full length, then retract
+		}
+		// 6u -> shooter
+		/*
+		7u shooter start
+		7d shooter stop
+		7r decrese speed (by 1)
+		7l increase speed (by 1)
+
+		8u hold winch up
+		8d hold winch dpwm
+
+		5u toggle belts + intake on
+		5d toggle belts + intake reverse
+		*/
+		;
+	}
 }
 
 task usercontrol() {
-	while (true) {
 		shooter_motor_set(vexRT[Ch3]);
+		belt_set(BELT_SPEED); //Belt on
+		intake_set(INTAKE_SPEED); // Intake on
+	while (true) {
+
+		if( is_ball_ready()== 0 ) //If no ball in place
+		{
+			set_pneumatics(SHOOTER_IN); //Don't shoot
+		}
+		else //If ball in place
+		{
+			set_pneumatics(SHOOTER_OUT); //Shoot
+		}
+
+		if(smallbot_lift_ready()==1) //If Small Bot in place
+		{
+			winch_down_up(); //Extend winch to full length, then retract
+		}
 		// 6u -> shooter
 		/*
 		7u shooter start

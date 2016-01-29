@@ -42,3 +42,15 @@ int smallbot_lift_ready(){
 void set_pneumatics(int state){
 	SensorValue(Shooter) = !!state;
 }
+
+void winch_down_up()
+{
+	while( winch_get_encoder()< MAX_WINCH_LENGTH )
+	{
+		winch_set(WINCH_DOWN_SPEED);
+	}
+	while( winch_at_top()== 0 )
+	{
+		winch_set(WINCH_UP_SPEED);
+	}
+}
