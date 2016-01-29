@@ -1,12 +1,12 @@
 int winch_get_encoder(){ return SensorValue(WinchEncoder); }
 
-int winch_at_top(){ return SensorValue(WinchLimitSwitch); }
+int winch_at_top(){ return SensorValue(WinchRaised); }
 
 
 int smallbot_dist(){ return SensorValue(LiftSonar); }
 
 int is_ball_ready(){
-	return SensorValue(BallLightSensor) < BALL_EXISTS_THRESH;
+	return SensorValue(BallSensor) < BALL_EXISTS_THRESH;
 }
 
 
@@ -29,16 +29,16 @@ void shooter_motor_set(int speed){
 }
 
 void winch_set(int speed){
-	motor[LeftWinch]  = speed;
-	motor[RightWinch] = speed;
+	motor[WinchLeft]  = speed;
+	motor[WinchRight] = speed;
 }
 
 int smallbot_lift_ready(){
-	int dist = smallbot_dist()
+	int dist = smallbot_dist();
 	return dist > SMALLBOT_CORRECT_PLACEMENT_MIN &&
 	       dist < SMALLBOT_CORRECT_PLACEMENT_MAX;
 }
 
-void setpneumatics(int state){
+void set_pneumatics(int state){
 	SensorValue(Shooter) = !!state;
 }

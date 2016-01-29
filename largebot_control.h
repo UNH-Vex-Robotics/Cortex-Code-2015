@@ -15,7 +15,7 @@ const int SHOOTER_SPEED = 90;
 const int SHOOTER_OFF_SPEED = 90;
 
 // if the ball-detecting light sensor reads below this value, we consider it a ball
-const int BALL_EXISTS_TRESH = 400;
+const int BALL_EXISTS_THRESH = 400;
 
 // CALIBRATEME
 const int SMALLBOT_CORRECT_PLACEMENT_MIN = 0;
@@ -38,4 +38,4 @@ void belt_set(int speed);
 
 void shooter_motor_set(int speed);
 
-void setpneumatics(int state);
+void set_pneumatics(int state);
