@@ -38,3 +38,7 @@ int smallbot_lift_ready(){
 	return dist > SMALLBOT_CORRECT_PLACEMENT_MIN &&
 	       dist < SMALLBOT_CORRECT_PLACEMENT_MAX;
 }
+
+void setpneumatics(int state){
+	SensorValue(Shooter) = !!state;
+}

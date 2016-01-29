@@ -21,6 +21,9 @@ const int BALL_EXISTS_TRESH = 400;
 const int SMALLBOT_CORRECT_PLACEMENT_MIN = 0;
 const int SMALLBOT_CORRECT_PLACEMENT_MAX = 0;
 
+const int SHOOTER_OUT = 1;
+const int SHOOTER_IN  = 0;
+
 void winch_set(int speed);
 int winch_get_encoder();
 int winch_at_top();
@@ -34,3 +37,5 @@ void intake_set(int speed);
 void belt_set(int speed);
 
 void shooter_motor_set(int speed);
+
+void setpneumatics(int state);
