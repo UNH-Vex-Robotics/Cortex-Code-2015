@@ -5,14 +5,14 @@
 #pragma config(Sensor, in3,    lfLeft,          sensorLineFollower)
 /* Code made by ethan */
 
-#define LEFT 0
-#define RIGHT 1
+#define LEFT 1
+#define RIGHT 0
 
 #define STRAIGHT  50
 #define TURN_HIGH 60
 #define TURN_LOW  30
 #define SPIN_HIGH 50
-#define SPIN_Low   0
+#define SPIN_LOW   0
 
 int lineout[2][8] = {
 	{SPIN_HIGH,  SPIN_LOW},  // 0 0 0
@@ -22,7 +22,7 @@ int lineout[2][8] = {
 	{TURN_LOW,   TURN_HIGH}, // 1 0 0
 	{SPIN_HIGH,  SPIN_LOW},  // 1 0 1
 	{TURN_LOW,   TURN_HIGH}, // 1 1 0
-	{SPING_HIGH, SPING_LOW}, // 1 1 1
+	{SPIN_HIGH, SPIN_LOW}, // 1 1 1
 };
 
 task main() {
