@@ -97,14 +97,14 @@ void dump_balls(){
 
 	// turn on pusher and intake
 	intake_set(INTAKE_OUT_SPEED);
-	pusher_set(PUSHER_OUT_SPEED / 2);
+	pusher_set(PUSHER_OUT_SPEED / 4);
 
 	// push out all 4 balls for big bot to pull in
 	while (true){
 		int newleft = pusher_get_left_encoder();
 		int newright = pusher_get_right_encoder();
 
-		if (((newleft - left) > PUSHER_ENC_DIST_THRESH) && ((newright - right) < (-PUSHER_ENC_DIST_THRESH)))
+		if (((newleft - left) < -PUSHER_ENC_DIST_THRESH) && ((newright - right) > PUSHER_ENC_DIST_THRESH))
 			break;
 	}
 
