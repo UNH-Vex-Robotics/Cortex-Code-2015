@@ -41,39 +41,55 @@ void pre_auton() {
 }
 
 task autonomous() {
+	motor_set(100,100);
 	drive_inches(34);
 
+	motor_set(100,100);
 	rotate_degrees_right(90);
 
+	motor_set(100,100);
 	//? move forward a bit?
 	dump_balls();
 
+	motor_set(100,100);
 	rotate_degrees_left(135); // NYI
 
-	motor_set(100,100);
+	wait1Msec(500);
 
+	wait1Msec(500);
 	pickup_balls();
 
+	wait1Msec(500);
         rotate_degrees_right(135);
 
 	// move forward a bit?
 
+	wait1Msec(500);
 	// dump balls again
 	dump_balls();
 
+	wait1Msec(500);
 	rotate_degrees_right(90);
 
+	wait1Msec(500);
 	drive_inches(30);
 
+	wait1Msec(500);
 	rotate_degrees_left(90);
 
+	wait1Msec(500);
 	drive_inches(25);
 
+	wait1Msec(500);
 	rotate_degrees_right(90);
 
+	wait1Msec(500);
 	reverse_until_bumpers(); // WOULD BE FUCKING AWESOME IF ROBOTC HAD FUNCTION POINTERS!
 	// stay put for 4 seconds while the hook lowers! MYI
+	wait1Msec(4000);
 	drive_inches(2);
+
+	motor_set(0, 0);
 
 	// do nothing; mission accomplised
 	// print to LCD for bonus points?
