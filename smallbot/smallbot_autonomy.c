@@ -21,7 +21,7 @@ void drive_inches_speed(float inches, int speed){
 			if (((newleft - left) > dist) && ((newright - right) > dist))
 				break;
 		else
-			if (((newleft - left) > dist) && ((newright - right) > dist))
+			if (((newleft - left) < dist) && ((newright - right) < dist))
 				break;
 	}
 
