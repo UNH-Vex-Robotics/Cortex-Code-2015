@@ -34,3 +34,19 @@ linestate linetracker_get(){
 	       (SensorValue(MiddleLineFollow) > LINE_THRESH) << 1 |
 	       (SensorValue(LeftLineFollow)   > LINE_THRESH) << 2;
 }
+
+float drive_encoder_to_inches (int encoder_value){
+	return ((DRIVE_WHEEL_CIRC*encoder_value)/360.0);
+}
+
+int inches_to_drive_encoder (float inches){
+	return ((inches*360.0)/DRIVE_WHEEL_CIRC);
+}
+
+float drive_encoder_to_degrees (int encoder_value){
+	return (encoder_value*(360/1308));
+}
+
+int degrees_to_drive_encoder (float degrees_value){
+	return (degrees_value*(1308/360));
+}

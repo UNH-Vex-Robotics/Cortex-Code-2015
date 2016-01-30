@@ -41,20 +41,9 @@ int pusher_get_home_switch();
 int bumperswitch_get_left();
 int bumperswitch_get_right();
 
-const int CIRC_D = 10.375; //in inches
+const int DRIVE_WHEEL_CIRC = 10.375; //in inches
 
-float drive_encoder_to_inches (int encoder_value){
-	return ((CIRC_D*encoder_value)/360.0);
-}
-
-int inches_to_drive_encoder (float inches){
-	return ((inches*360.0)/CIRC_D);
-}
-
-float drive_encoder_to_degrees (int encoder_value){
-	return (encoder_value*(360/1308));
-}
-
-int degrees_to_drive_encoder (float degrees_value){
-	return (degrees_value*(1308/360));
-}
+float drive_encoder_to_inches (int encoder_value);
+int inches_to_drive_encoder (float inches);
+float drive_encoder_to_degrees (int encoder_value);
+int degrees_to_drive_encoder (float degrees_value);
