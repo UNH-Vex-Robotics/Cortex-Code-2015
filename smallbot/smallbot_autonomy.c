@@ -30,20 +30,20 @@ void drive_inches(float inches){
 }
 
 void drive_until_bumpers(){
-	motors_set(-10, -10);
+	motor_set(-10, -10);
 
 	//drive in reverse until bumper switches hit big bot
 	while(! (bumperswitch_get_left() && bumperswitch_get_right()) )
 		;
 
-        motors_set(0, 0);
+        motor_set(0, 0);
 }
 
 void rotate_degrees_right(float degrees){
-	left = motor_get_left_encoder();
-	right = motor_get_right_encoder();
+	int left = motor_get_left_encoder();
+	int right = motor_get_right_encoder();
 
-	dist = degrees_to_drive_encoder(degrees);
+	int dist = degrees_to_drive_encoder(degrees);
 
 	motor_set(100,-100);
 
@@ -87,9 +87,9 @@ void dump_balls(){
 }
 
 void pickup_balls(){
-	drive_inches(3);
+	drive_inches(3.0);
 	intake_set(INTAKE_IN_SPEED);
-	drive_inches_slow(4);
+	drive_inches_slow(4.0);
 	intake_set(INTAKE_OFF_SPEED);
-	drive_inches(-7);
+	drive_inches(-7.0);
 }

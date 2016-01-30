@@ -72,16 +72,13 @@ task autonomous() {
 task usercontrol() {
 	int shots_taken = 0;
 
-	int toggle_belts_on_pressed = 0;
-	int toggle_belts_off_pressed = 0;
-
 	shooter_set_target_speed(80);
 	shooter_motor_set(80);
 
 	while (true) {
 		shots_taken += auto_shoot();
 		// 6u -> shooter
-		if(vexRt[Btn6U])
+		if(vexRT[Btn6U])
 			set_pneumatics(true); // NOTE !!! THIS WILL NOT PLAY NICE WITH THE auto_shoot function!!! You have been warned
 
 		shooter_increment_speed(vexRT[Btn7R]); // NOTE !!! THIS WILL NOT PLAY NICE WITH THE auto_shoot function!!! You have been warned
@@ -95,7 +92,7 @@ task usercontrol() {
 		winch_set(vexRT[Btn8U] * WINCH_UP_SPEED + vexRT[Btn8D] * -WINCH_UP_SPEED); // yes, this does NOT ues WINCH_DOWN_SPEED, because then there would be a posibilty that both buttons -> movement
 
 		if(vexRT[Btn5U] || vexRT[Btn5D]){
-			belts_set(vexRT[Btn5U] * BELT_SPEED + vexRT[Btn5D] * -BELT_SPEED);
+			belt_set(vexRT[Btn5U] * BELT_SPEED + vexRT[Btn5D] * -BELT_SPEED);
 			intake_set(vexRT[Btn5U] * INTAKE_SPEED + vexRT[Btn5D] * -INTAKE_SPEED);
 		}
 	}

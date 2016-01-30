@@ -32,6 +32,7 @@
 #include "Vex_Competition_Includes.c"   // Main competition background code...do not modify!
 
 #include "smallbot_control.h"
+#include "smallbot_autonomy.h"
 
 void pre_auton() {
 	// Set bStopTasksBetweenModes to false if you want to keep user created tasks running between
@@ -94,3 +95,4 @@ task usercontrol() {
 }
 
 #include "smallbot_control.c"
+#include "smallbot_autonomy.c"
