@@ -41,20 +41,18 @@ void pre_auton() {
 }
 
 task autonomous() {
-	motor_set(100,100);
+	wait1Msec(500);
 	drive_inches(34);
 
-	motor_set(100,100);
+	wait1Msec(500);
 	rotate_degrees_right(90);
 
-	motor_set(100,100);
 	//? move forward a bit?
+	wait1Msec(500);
 	dump_balls();
 
-	motor_set(100,100);
-	rotate_degrees_left(135); // NYI
-
 	wait1Msec(500);
+	rotate_degrees_left(135);
 
 	wait1Msec(500);
 	pickup_balls();

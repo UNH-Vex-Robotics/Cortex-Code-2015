@@ -119,9 +119,13 @@ void dump_balls(){
 }
 
 void pickup_balls(){
-	drive_inches(3.0);
+	drive_inches(3);
+	wait1Msec(500);
 	intake_set(INTAKE_IN_SPEED);
-	drive_inches_slow(4.0);
+	wait1Msec(500);
+	drive_inches_slow(4);
+	wait1Msec(500);
 	intake_set(INTAKE_OFF_SPEED);
-	drive_inches(-7.0);
+	wait1Msec(500);
+	drive_inches(-7);
 }
