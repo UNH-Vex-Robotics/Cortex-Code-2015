@@ -15,14 +15,14 @@ const int WINCH_OFF_SPEED  =  0;
 const int WINCH_DOWN_SPEED = -127;
 const int MAX_WINCH_LENGTH = 1750;
 
-const int SHOOTER_SPEED = 82;
+const int SHOOTER_SPEED = 84;
 const int SHOOTER_OFF_SPEED = 0;
 
 const int INTAKE_SPEED = 50;
 const int INTAKE_OFF_SPEED = 0;
 
 // if the ball-detecting light sensor reads below this value, we consider it a ball
-const int BALL_EXISTS_THRESH = 400;
+const int BALL_EXISTS_THRESH = 800;
 
 // CALIBRATEME
 const int SMALLBOT_CORRECT_PLACEMENT_MIN = 0;

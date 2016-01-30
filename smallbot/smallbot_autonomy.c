@@ -109,7 +109,7 @@ void dump_balls(){
 	int right = pusher_get_right_encoder(); // RIGHT IS POSITIVE
 
 	// turn on pusher and intake
-	intake_set(INTAKE_IN_SPEED); // backwards?
+	intake_set(INTAKE_OUT_SPEED);
 	pusher_set(PUSHER_OUT_SPEED / 4);
 
 	// push out all 4 balls for big bot to pull in
@@ -134,7 +134,7 @@ void dump_balls(){
 void pickup_balls(){
 	drive_inches(3);
 	wait1Msec(500);
-	intake_set(INTAKE_OUT_SPEED);
+	intake_set(INTAKE_IN_SPEED);
 	wait1Msec(500);
 	drive_inches_slow(8);
 	wait1Msec(500);

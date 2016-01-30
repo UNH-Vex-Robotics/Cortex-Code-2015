@@ -48,5 +48,5 @@ float drive_encoder_to_degrees (int encoder_value){
 }
 
 int degrees_to_drive_encoder (float degrees_value){
-	return (degrees_value*(1308/360)) * 1.14; // add 15% scaling factor because we are undershooting a little
+	return (degrees_value*(1308/360)) * 1.13; // add 15% scaling factor because we are undershooting a little
 }
