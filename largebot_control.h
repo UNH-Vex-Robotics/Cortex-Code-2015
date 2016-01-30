@@ -31,7 +31,7 @@ const int SMALLBOT_CORRECT_PLACEMENT_MAX = 0;
 const int SHOOTER_OUT = 1;
 const int SHOOTER_IN  = 0;
 
-
+typedef unsigned long time;
 
 void winch_set(int speed);
 int winch_get_encoder();

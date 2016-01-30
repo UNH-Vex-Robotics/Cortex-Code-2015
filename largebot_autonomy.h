@@ -10,8 +10,4 @@ typedef struct {
 	int pneustate;
 } AutoShooter;
 
-extern AutoShooter autoshootdata;
-
 int auto_shoot();
-time auto_last_shot();
-

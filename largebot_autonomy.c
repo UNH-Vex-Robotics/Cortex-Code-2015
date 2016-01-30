@@ -4,6 +4,8 @@ AutoShooter autoshootdata = {
 	0, 0, 0
 };
 
+int would_auto_shoot();
+
 // return true if shot
 // Call in a loop
 // This extends and retracts the piston
@@ -21,11 +23,9 @@ int auto_shoot(){
 		autoshootdata.last_shot = nSysTime;
 		set_pneumatics(SHOOTER_OUT);
 		autoshootdata.pneustate = true;
+		return 1;
 	}
-}
-
-time auto_last_shot(){
-    return autoshootdata.last_shot;
+	return 0;
 }
 
 // this checks if there is a ball,
@@ -33,6 +33,6 @@ time auto_last_shot(){
 int would_auto_shoot(){
 	if(!is_ball_ready()) return 0;
 	time now = nSysTime;
-	if(now - SHOT_DELAY < autoshootdata.last_shot) return 0;
-	if(now - SHOT_DELAY < autoshootdata.last_shot) return 0;
+	if(now - SHOOTER_CYCLE_SPEED < autoshootdata.last_shot) return 0;
+	return 1;
 }

@@ -69,9 +69,11 @@ task autonomous() {
 }
 
 task usercontrol() {
+	int shots_taken = 0;
+
 	shooter_motor_set(80);
 	while (true) {
-		auto_shoot();
+		shots_taken += auto_shoot();
 		// 6u -> shooter
 		/*
 		7u shooter start
