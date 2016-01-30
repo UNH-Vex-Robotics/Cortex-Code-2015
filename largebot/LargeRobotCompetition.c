@@ -26,6 +26,7 @@
 
 #include "largebot_control.h"
 #include "largebot_autonomy.h"
+#include "shooter.h"
 
 void pre_auton() {
 	// Set bStopTasksBetweenModes to false if you want to keep user created tasks running between
@@ -91,14 +92,15 @@ task usercontrol() {
 		else if(vexRT[Btn7U])
 			shooter_motor_set(0);
 
-		winch_set(vexRT[Btn8U] * WINCH_UP_SPEED + vexRT[8D] * -WINCH_UP_SPEED); // yes, this does NOT ues WINCH_DOWN_SPEED, because then there would be a posibilty that both buttons -> movement
+		winch_set(vexRT[Btn8U] * WINCH_UP_SPEED + vexRT[Btn8D] * -WINCH_UP_SPEED); // yes, this does NOT ues WINCH_DOWN_SPEED, because then there would be a posibilty that both buttons -> movement
 
 		if(vexRT[Btn5U] || vexRT[Btn5D]){
-			belts_set(vexRT[Btn5U] * BELT_SPEED + vexRT[5D] * -BELT_SPEED);
-			intake_set(vexRT[Btn5U] * INTAKE_SPEED + vexRT[5D] * -INTAKE_SPEED);
+			belts_set(vexRT[Btn5U] * BELT_SPEED + vexRT[Btn5D] * -BELT_SPEED);
+			intake_set(vexRT[Btn5U] * INTAKE_SPEED + vexRT[Btn5D] * -INTAKE_SPEED);
 		}
 	}
 }
 
 #include "largebot_control.c"
 #include "largebot_autonomy.c"
+#include "shooter.c"
