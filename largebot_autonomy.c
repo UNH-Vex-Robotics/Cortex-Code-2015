@@ -12,8 +12,12 @@ int auto_shoot(){
 		if(nSysTime - autoshootdata.last_shot > SHOOTER_OUT_TIMESPAN){
 			set_pneumatics(SHOOTER_IN);
 			autoshootdata.pneustate = false;
+			intake_set(INTAKE_SPEED);
+			belt_set(BELT_SPEED);
 		}
 	} else if(would_auto_shoot()){
+		intake_set(INTAKE_OFF_SPEED);
+		belt_set(BELT_OFF_SPEED);
 		autoshootdata.last_shot = nSysTime;
 		set_pneumatics(SHOOTER_OUT);
 		autoshootdata.pneustate = true;
