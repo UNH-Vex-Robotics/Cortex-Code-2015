@@ -1,12 +1,12 @@
 
 void motor_set(int left, int right){
-	motor[RightDriveFront]  = right;
-	motor[RightDriveMiddle] = right;
-	motor[RightDriveRear]   = right;
+	motor[RightDriveMotorFront]  = right;
+	motor[RightDriveMotorMiddle] = right;
+	motor[RightDriveMotorRear]   = right;
 
-	motor[LeftDriveFront]  = left;
-	motor[LeftDriveMiddle] = left;
-	motor[LeftDriveRear]   = left;
+	motor[LeftDriveMotorFront]  = left;
+	motor[LeftDriveMotorMiddle] = left;
+	motor[LeftDriveMotorRear]   = left;
 }
 
 void intake_set(int speed){
@@ -15,12 +15,12 @@ void intake_set(int speed){
 }
 
 void pusher_set(int speed){
-	motor[RightPush] = speed;
-	motor[LeftPush]  = speed;
+	motor[PusherRightMotor] = speed;
+	motor[PusherLeftMotor]  = speed;
 }
 
-int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMiddle); }
-int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMiddle); }
+int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMotorMiddle); }
+int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMotorMiddle); }
 
 int pusher_get_left_encoder(){ return SensorValue(PusherLeftEncoder); }
 int pusher_get_right_encoder(){ return SensorValue(PusherRightEncoder); }
