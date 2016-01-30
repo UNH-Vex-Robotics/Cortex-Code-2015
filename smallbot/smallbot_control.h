@@ -26,7 +26,7 @@ const int PUSHER_IN_SPEED  = -127;
 
 // Various robotly functions
 
-void motor_set(int left, int right);
+void motor_set(int right, int left);
 
 void intake_set(int speed);
 void pusher_set(int speed);

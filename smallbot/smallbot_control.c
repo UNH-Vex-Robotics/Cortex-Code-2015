@@ -1,5 +1,5 @@
 
-void motor_set(int left, int right){
+void motor_set(int right, int left){
 	motor[RightDriveMotorFront]  = right;
 	motor[RightDriveMotorMiddle] = right;
 	motor[RightDriveMotorRear]   = right;
@@ -20,7 +20,7 @@ void pusher_set(int speed){
 }
 
 int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMotorMiddle); }
-int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMotorMiddle); }
+int motor_get_right_encoder(){ return - nMotorEncoder(RightDriveMotorMiddle); } // This is reversed
 
 int pusher_get_left_encoder(){ return SensorValue(PusherLeftEncoder); }
 int pusher_get_right_encoder(){ return SensorValue(PusherRightEncoder); }
