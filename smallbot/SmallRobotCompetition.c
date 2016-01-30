@@ -86,7 +86,7 @@ task usercontrol() {
 		motor_set(vexRT[Ch2], vexRT[Ch3]);
 
 		// Pusher
-		pusher_set(vexRT[Btn5U] * PUSHER_OUT_SPEED + vexRT[Btn5D] * PUSHER_IN_SPEED);
+		pusher_set(vexRT[Btn5U] * PUSHER_OUT_SPEED + vexRT[Btn5D] * PUSHER_IN_SPEED * !pusher_get_home_switch());
 
 		// Intake
 		intake_set(vexRT[Btn6U] * INTAKE_IN_SPEED + vexRT[Btn6D] * INTAKE_OUT_SPEED);

@@ -13,7 +13,7 @@ const unsigned int LINE_THRESH = 700;
 
 // Max reading from the push plate encoders to be considered "Fully out"
 const int PUSHER_ENC_DIST_MAX    = 983;
-const int PUSHER_ENC_DIST_THRESH = 970;
+const int PUSHER_ENC_DIST_THRESH = 900;
 
 // speed defines for vairous subsystems/actions
 const int INTAKE_OUT_SPEED = 127;
