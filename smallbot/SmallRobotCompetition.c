@@ -42,10 +42,10 @@ void pre_auton() {
 
 task autonomous() {
 	drive_inches(34);
-	drive_inches(34);
 
 	rotate_degrees_right(90);
 
+	//? move forward a bit?
 	dump_balls();
 
 	rotate_degrees_left(135); // NYI

@@ -2,7 +2,7 @@ void drive_inches_speed(float inches, int speed){
 	int left = motor_get_left_encoder();
 	int right = motor_get_right_encoder();
 
-	int forward = inches < 0;
+	int forward = inches > 0;
 
 	if(forward){
 		motor_set(speed, speed);
