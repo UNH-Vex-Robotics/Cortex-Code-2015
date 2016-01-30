@@ -92,11 +92,11 @@ void rotate_degrees_left(float degrees){
 
 
 void dump_balls(){
-	int left = pusher_get_left_encoder();
-	int right = pusher_get_right_encoder();
+	int left = pusher_get_left_encoder(); // LEFT IS NEGATIVE
+	int right = pusher_get_right_encoder(); // RIGHT IS POSITIVE
 
 	// turn on pusher and intake
-	intake_set(INTAKE_OUT_SPEED);
+	intake_set(INTAKE_IN_SPEED); // backwards?
 	pusher_set(PUSHER_OUT_SPEED / 4);
 
 	// push out all 4 balls for big bot to pull in
@@ -104,14 +104,14 @@ void dump_balls(){
 		int newleft = pusher_get_left_encoder();
 		int newright = pusher_get_right_encoder();
 
-		if (((newleft - left) < -PUSHER_ENC_DIST_THRESH) && ((newright - right) > PUSHER_ENC_DIST_THRESH))
+		if (((newleft - left) < -PUSHER_ENC_DIST_THRESH) || ((newright - right) > PUSHER_ENC_DIST_THRESH))
 			break;
 	}
 
 	//shut off intake
 	//reverse pusher to initial position
 	intake_set(INTAKE_OFF_SPEED);
-	pusher_set(PUSHER_IN_SPEED / 2);
+	pusher_set(PUSHER_IN_SPEED / 4);
 
 	while(!pusher_get_home_switch()){}
 
