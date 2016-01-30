@@ -7,8 +7,8 @@ const int DRIVE_MOTOR_TURN_SPEED    = 40;
 const int DRIVE_MOTOR_PICKUP_SPEED  = 10;
 
 void drive_inches_speed(float inches, int speed); // can be negative
-void drive_inches(float inches){ drive_inches_speed(inches, DRIVE_MOTOR_FORWARD_SPEED); }
-void drive_inches_slow(float inches){ drive_inches_speed(inches, DRIVE_MOTOR_PICKUP_SPEED); }
+void drive_inches(float inches);
+void drive_inches_slow(float inches);
 
 void drive_until_bumpers();
 

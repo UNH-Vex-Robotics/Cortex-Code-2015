@@ -1,4 +1,3 @@
-
 void drive_inches(float inches){
 	int left = motor_get_left_encoder();
 	int right = motor_get_right_encoder();
@@ -29,6 +28,14 @@ void drive_inches(float inches){
 	motor_set(0,0);
 }
 
+void drive_inches(float inches){
+	drive_inches_speed(inches, DRIVE_MOTOR_FORWARD_SPEED);
+}
+
+void drive_inches_slow(float inches){
+	drive_inches_speed(inches, DRIVE_MOTOR_PICKUP_SPEED);
+}
+
 void drive_until_bumpers(){
 	motor_set(-10, -10);
 
@@ -45,7 +52,7 @@ void rotate_degrees_right(float degrees){
 
 	int dist = degrees_to_drive_encoder(degrees);
 
-	motor_set(100,-100);
+	motor_set(DRIVE_MOTOR_TURN_SPEED, -DRIVE_MOTOR_TURN_SPEED);
 
 	//turn right a certain degree and then stop to release balls to big bot
 	while (true){
@@ -58,6 +65,27 @@ void rotate_degrees_right(float degrees){
 
 	motor_set(0,0);
 }
+
+void rotate_degrees_left(float degrees){
+	int left = motor_get_left_encoder();
+	int right = motor_get_right_encoder();
+
+	int dist = degrees_to_drive_encoder(degrees);
+
+	motor_set(-DRIVE_MOTOR_TURN_SPEED, DRIVE_MOTOR_TURN_SPEED);
+
+	//turn right a certain degree and then stop to release balls to big bot
+	while (true){
+		int newleft = motor_get_left_encoder();
+		int newright = motor_get_right_encoder();
+
+		if (((newleft - left) < -dist) && ((newright - right) > dist))
+			break;
+	}
+
+	motor_set(0,0);
+}
+
 
 void dump_balls(){
 	int left = pusher_get_left_encoder();
