@@ -1,13 +1,13 @@
-void drive_inches(float inches){
+void drive_inches_speed(float inches, int speed){
 	int left = motor_get_left_encoder();
 	int right = motor_get_right_encoder();
 
 	int forward = inches < 0;
 
 	if(forward){
-		motor_set(DRIVE_MOTOR_FORWARD_SPEED, DRIVE_MOTOR_FORWARD_SPEED);
+		motor_set(speed, speed);
 	} else {
-		motor_set(-DRIVE_MOTOR_FORWARD_SPEED, -DRIVE_MOTOR_FORWARD_SPEED);
+		motor_set(-speed, -speed);
 	}
 
 	int dist = inches_to_drive_encoder(inches);
@@ -36,14 +36,18 @@ void drive_inches_slow(float inches){
 	drive_inches_speed(inches, DRIVE_MOTOR_PICKUP_SPEED);
 }
 
-void drive_until_bumpers(){
+void reverse_until_bumpers(){
 	motor_set(-10, -10);
 
 	//drive in reverse until bumper switches hit big bot
-	while(! (bumperswitch_get_left() && bumperswitch_get_right()) )
-		;
+	while(! (bumperswitch_get_left() && bumperswitch_get_right()) ){
+		if(bumperswitch_get_left())
+			motor_set(-10, 0);
+		if(bumperswitch_get_right())
+			motor_set(0, -10);
+	}
 
-        motor_set(0, 0);
+	motor_set(0, 0);
 }
 
 void rotate_degrees_right(float degrees){

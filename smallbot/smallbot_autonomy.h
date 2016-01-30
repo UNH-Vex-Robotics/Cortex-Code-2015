@@ -10,7 +10,7 @@ void drive_inches_speed(float inches, int speed); // can be negative
 void drive_inches(float inches);
 void drive_inches_slow(float inches);
 
-void drive_until_bumpers();
+void reverse_until_bumpers();
 
 void rotate_degrees_right(float degrees);
 void rotate_degrees_left(float degrees); // NYI
