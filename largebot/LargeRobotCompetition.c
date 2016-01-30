@@ -71,22 +71,32 @@ task autonomous() {
 task usercontrol() {
 	int shots_taken = 0;
 
+	int toggle_belts_on_pressed = 0;
+	int toggle_belts_off_pressed = 0;
+
+	shooter_set_target_speed(80);
 	shooter_motor_set(80);
+
 	while (true) {
 		shots_taken += auto_shoot();
 		// 6u -> shooter
-		/*
-		7u shooter start
-		7d shooter stop
-		7r decrese speed (by 1)
-		7l increase speed (by 1)
+		if(vexRt[Btn6U])
+			set_pneumatics(true); // NOTE !!! THIS WILL NOT PLAY NICE WITH THE auto_shoot function!!! You have been warned
 
-		8u hold winch up
-		8d hold winch dpwm
+		shooter_increment_speed(vexRT[Btn7R]); // NOTE !!! THIS WILL NOT PLAY NICE WITH THE auto_shoot function!!! You have been warned
+		shooter_decrement_speed(vexRT[Btn7L]); // NOTE !!! THIS WILL NOT PLAY NICE WITH THE auto_shoot function!!! You have been warned
 
-		5u toggle belts + intake on
-		5d toggle belts + intake reverse
-		*/
+		if(vexRT[Btn7U])
+			shooter_motor_set(shooter_get_target_speed());
+		else if(vexRT[Btn7U])
+			shooter_motor_set(0);
+
+		winch_set(vexRT[Btn8U] * WINCH_UP_SPEED + vexRT[8D] * -WINCH_UP_SPEED); // yes, this does NOT ues WINCH_DOWN_SPEED, because then there would be a posibilty that both buttons -> movement
+
+		if(vexRT[Btn5U] || vexRT[Btn5D]){
+			belts_set(vexRT[Btn5U] * BELT_SPEED + vexRT[5D] * -BELT_SPEED);
+			intake_set(vexRT[Btn5U] * INTAKE_SPEED + vexRT[5D] * -INTAKE_SPEED);
+		}
 	}
 }
 
