@@ -1,6 +1,6 @@
 #pragma config(Sensor, in2,    BallSensor,     sensorReflection)
 #pragma config(Sensor, dgtl1,  LiftSonar,      sensorNone)
-#pragma config(Sensor, dgtl2,  Shooter,        sensorDigitalOut)
+#pragma config(Sensor, dgtl9,  Shooter,        sensorDigitalOut)
 #pragma config(Sensor, dgtl3,  WinchRaised,     sensorTouch)
 #pragma config(Sensor, dgtl4,  WinchEncoder,    sensorQuadEncoder)
 #pragma config(Motor,  port1,           WinchLeft,     tmotorVex393_HBridge, openLoop)
