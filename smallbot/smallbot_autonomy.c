@@ -20,7 +20,7 @@ void drive_inches_speed(float inches, int speed){
 			if( (newleft - left) > dist && (newright - right) > dist )
 				break;
 		}
-		} else {
+	} else {
 		motor_set(-speed, -speed);
 		while(true){
 			int newleft = motor_get_left_encoder();
