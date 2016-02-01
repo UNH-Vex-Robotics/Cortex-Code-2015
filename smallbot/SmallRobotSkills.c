@@ -43,65 +43,19 @@ void pre_auton() {
 }
 
 task autonomous() {
-	// drive_inches(-34); works
 	wait1Msec(500);
-	drive_inches(28.5); // works
+// on close edge of tile drive_inches(14.5); // works
+	drive_inches(14.5);
+// touching wall drive_inches(28.5); // works
 
 	wait1Msec(500);
 	rotate_degrees_right(90); // works
-
-	wait1Msec(500);
-	drive_inches_slow(3);
-
-	wait1Msec(500);
-	dump_balls(); // works
-
-	wait1Msec(500);
-	drive_inches_slow(-3);
-
-	wait1Msec(500);
-	rotate_degrees_left(135);
-
-	wait1Msec(500);
-	pickup_balls();
-
-	wait1Msec(500);
-	rotate_degrees_right(135);
-
-	wait1Msec(500);
-	drive_inches_slow(4);
-
-	wait1Msec(500);
-	// dump balls again
-	dump_balls();
-
-	wait1Msec(500);
-	drive_inches_slow(-4);
-
-  if(0){ // ignore the "hanging" part of autonomous
-
-	wait1Msec(500);
-	rotate_degrees_right(90);
-
-	wait1Msec(500);
-	drive_inches(22);
-
-	wait1Msec(500);
-	rotate_degrees_left(90);
-
-	wait1Msec(500);
-	drive_inches(24);
-
-	wait1Msec(500);
-	rotate_degrees_right(90);
 
 	wait1Msec(500);
 	reverse_until_bumpers(); // WOULD BE FUCKING AWESOME IF ROBOTC HAD FUNCTION POINTERS!
 	// stay put for 4 seconds while the hook lowers!
 	wait1Msec(4000);
 	drive_inches_slow(2);
-
-  }
 
 	motor_set(0, 0);
 
