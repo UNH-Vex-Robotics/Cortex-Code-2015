@@ -53,7 +53,7 @@ task autonomous() {
 	drive_inches_slow(3);
 
 	wait1Msec(500);
-	dump_balls();
+	dump_balls_low();
 
 	wait1Msec(500);
 	drive_inches_slow(-3);
@@ -72,7 +72,7 @@ task autonomous() {
 
 	wait1Msec(500);
 	// dump balls again
-	dump_balls();
+	dump_balls_low();
 
 	wait1Msec(500);
 	drive_inches_slow(-4);
