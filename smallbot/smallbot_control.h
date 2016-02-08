@@ -11,32 +11,23 @@ const int LINE_LRM    = 7;
 
 const unsigned int LINE_THRESH = 700;
 
-// Max reading from the push plate encoders to be considered "Fully out"
-const int PUSHER_ENC_DIST_MAX    = 983;
-const int PUSHER_ENC_DIST_THRESH = 900;
-
 // speed defines for vairous subsystems/actions
-const int INTAKE_OUT_SPEED = 127;
+const int INTAKE_IN_SPEED = 127;
 const int INTAKE_OFF_SPEED = 0;
-const int INTAKE_IN_SPEED  = -127;
+const int INTAKE_OUT_SPEED  = -127;
 
-const int PUSHER_OUT_SPEED = 127;
-const int PUSHER_OFF_SPEED = 0;
-const int PUSHER_IN_SPEED  = -127;
+const int TOP_INTAKE_OUT_SPEED = 127;
+const int TOP_INTAKE_OFF_SPEED = 0;
+const int TOP_INTAKE_IN_SPEED  = -127;
 
 // Various robotly functions
-
 void motor_set(int right, int left);
 
 void intake_set(int speed);
-void pusher_set(int speed);
+void top_intake_set(int speed);
 
 int motor_get_left_encoder();
 int motor_get_right_encoder();
-
-int pusher_get_left_encoder();
-int pusher_get_right_encoder();
-int pusher_get_home_switch();
 
 int bumperswitch_get_left();
 int bumperswitch_get_right();

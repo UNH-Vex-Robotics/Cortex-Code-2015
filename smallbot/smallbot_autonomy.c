@@ -1,3 +1,5 @@
+//#include "smallbot_autonomy.h"
+
 void drive_inches_speed(float inches, int speed){
 	int left = motor_get_left_encoder();
 	int right = motor_get_right_encoder();
@@ -105,30 +107,19 @@ void rotate_degrees_left(float degrees){
 
 
 void dump_balls(){
-	int left = pusher_get_left_encoder(); // LEFT IS NEGATIVE
-	int right = pusher_get_right_encoder(); // RIGHT IS POSITIVE
-
-	// turn on pusher and intake
+	// turn on intake for a specified time
 	intake_set(INTAKE_OUT_SPEED);
-	pusher_set(PUSHER_OUT_SPEED / 4);
+	top_intake_set(TOP_INTAKE_OUT_SPEED);
+
+	time start = nSysTime;
 
 	// push out all 4 balls for big bot to pull in
-	while (true){
-		int newleft = pusher_get_left_encoder();
-		int newright = pusher_get_right_encoder();
-
-		if (((newleft - left) < -PUSHER_ENC_DIST_THRESH) || ((newright - right) > PUSHER_ENC_DIST_THRESH))
-			break;
-	}
+	while (nSysTime - start < DUMP_BALL_INTAKE_TIME)
+		;
 
 	//shut off intake
-	//reverse pusher to initial position
 	intake_set(INTAKE_OFF_SPEED);
-	pusher_set(PUSHER_IN_SPEED / 4);
-
-	while(!pusher_get_home_switch()){}
-
-	pusher_set(PUSHER_OFF_SPEED);
+	top_intake_set(TOP_INTAKE_OFF_SPEED);
 }
 
 void pickup_balls(){

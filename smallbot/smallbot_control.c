@@ -1,9 +1,12 @@
+//#include "smallbot_control.h"
 
 void motor_set(int right, int left){
+	motor[RightDriveMotorCenter] = right;
 	motor[RightDriveMotorFront]  = right;
 	motor[RightDriveMotorMiddle] = right;
 	motor[RightDriveMotorRear]   = right;
 
+	motor[LeftDriveMotorCenter] = left;
 	motor[LeftDriveMotorFront]  = left;
 	motor[LeftDriveMotorMiddle] = left;
 	motor[LeftDriveMotorRear]   = left;
@@ -14,17 +17,13 @@ void intake_set(int speed){
 	motor[LeftIntake]  = speed;
 }
 
-void pusher_set(int speed){
-	motor[PusherRightMotor] = speed;
-	motor[PusherLeftMotor]  = speed;
+void top_intake_set(int speed){
+	motor[RightTopIntake] = speed;
+	motor[LeftTopIntake]  = speed;
 }
 
 int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMotorMiddle); }
 int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMotorMiddle); }
-
-int pusher_get_left_encoder(){ return SensorValue(PusherLeftEncoder); }
-int pusher_get_right_encoder(){ return SensorValue(PusherRightEncoder); }
-int pusher_get_home_switch(){ return SensorValue(PusherHomeLimit); }
 
 int bumperswitch_get_left(){ return !SensorValue[LeftRearBumper]; }
 int bumperswitch_get_right(){ return !SensorValue[RightRearBumper]; }
