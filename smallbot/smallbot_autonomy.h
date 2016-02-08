@@ -15,6 +15,7 @@ void reverse_until_bumpers();
 void rotate_degrees_right(float degrees);
 void rotate_degrees_left(float degrees);
 
-void dump_balls();
+void dump_balls_low();
+void dump_balls_high();
 
 void pickup_balls();

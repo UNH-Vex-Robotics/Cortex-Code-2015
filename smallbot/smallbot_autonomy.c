@@ -106,7 +106,7 @@ void rotate_degrees_left(float degrees){
 }
 
 
-void dump_balls(){
+void dump_balls_low(){
 	// turn on intake for a specified time
 	intake_set(INTAKE_OUT_SPEED);
 	top_intake_set(TOP_INTAKE_IN_SPEED); // we want the balls to go out the low, not the high
@@ -121,6 +121,23 @@ void dump_balls(){
 	intake_set(INTAKE_OFF_SPEED);
 	top_intake_set(TOP_INTAKE_OFF_SPEED);
 }
+
+void dump_balls_high(){
+	// turn on intake for a specified time
+	intake_set(INTAKE_IN_SPEED);
+	top_intake_set(TOP_INTAKE_OUT_SPEED); // we want the balls to go out the low, not the high
+
+	time start = nSysTime;
+
+	// push out all 4 balls for big bot to pull in
+	while (nSysTime - start < DUMP_BALL_HIGH_INTAKE_TIME)
+		;
+
+	//shut off intake
+	intake_set(INTAKE_OFF_SPEED);
+	top_intake_set(TOP_INTAKE_OFF_SPEED);
+}
+
 
 void pickup_balls(){
 	drive_inches(3);
