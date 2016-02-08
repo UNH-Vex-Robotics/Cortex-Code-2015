@@ -1,3 +1,5 @@
+typedef int time;
+
 // stuff for line sensor
 typedef unsigned int linestate;
 const int LINE_NONE   = 0;
@@ -10,6 +12,10 @@ const int LINE_LR     = 5;
 const int LINE_LRM    = 7;
 
 const unsigned int LINE_THRESH = 700;
+
+// miliseconds it takes to dump all balls out
+const int DUMP_BALL_LOW_INTAKE_TIME = 1500;
+const int DUMP_BALL_HIGH_INTAKE_TIME = 1500;
 
 // speed defines for vairous subsystems/actions
 const int INTAKE_IN_SPEED = 127;

@@ -13,13 +13,11 @@ void motor_set(int right, int left){
 }
 
 void intake_set(int speed){
-	motor[RightIntake] = speed;
-	motor[LeftIntake]  = speed;
+	motor[Intake]  = speed;
 }
 
 void top_intake_set(int speed){
-	motor[RightTopIntake] = speed;
-	motor[LeftTopIntake]  = speed;
+	motor[TopIntake] = speed;
 }
 
 int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMotorMiddle); }
