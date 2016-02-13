@@ -115,10 +115,10 @@ task usercontrol() {
 		motor_set(vexRT[Ch2], vexRT[Ch3]);
 
 		// Top intake
-		top_intake_set(vexRT[Btn5D] * TOP_INTAKE_OUT_SPEED);
+		top_intake_set((vexRT[Btn5D] - vexRT[Btn5U]) * TOP_INTAKE_IN_SPEED);
 
 		// Intake
-		intake_set(vexRT[Btn6U] * INTAKE_IN_SPEED + vexRT[Btn6D] * INTAKE_OUT_SPEED);
+		intake_set((vexRT[Btn6U] - vexRT[Btn6D] * INTAKE_IN_SPEED);
 	}
 }
 
