@@ -118,7 +118,7 @@ task usercontrol() {
 		top_intake_set((vexRT[Btn5D] - vexRT[Btn5U]) * TOP_INTAKE_IN_SPEED);
 
 		// Intake
-		intake_set((vexRT[Btn6U] - vexRT[Btn6D] * INTAKE_IN_SPEED);
+		intake_set((vexRT[Btn6U] - vexRT[Btn6D]) * INTAKE_IN_SPEED);
 	}
 }
 
