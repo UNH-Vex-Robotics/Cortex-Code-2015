@@ -1,6 +1,9 @@
 //#include "smallbot_control.h"
 
 void motor_set(int right, int left){
+	if(right > 5 || right < -5 ) right = 0;
+	if(left < 5 && left > -5)    left = 0;
+
 	motor[RightDriveMotorCenter] = right;
 	motor[RightDriveMotorFront]  = right;
 	motor[RightDriveMotorMiddle] = right;
