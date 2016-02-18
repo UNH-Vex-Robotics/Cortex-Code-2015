@@ -54,3 +54,8 @@ void winch_down_up()
 		winch_set(WINCH_UP_SPEED);
 	}
 }
+
+int shooter_motor_speed()
+	{
+		return ((SensorValue(I2C_1) + SensorValue(I2C_2) + SensorValue(I2C_3) + SensorValue(I2C_4) + SensorValue(I2C_5) + SensorValue(I2C_6))/6);
+	}

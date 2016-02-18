@@ -50,3 +50,5 @@ void shooter_motor_set(int speed);
 void set_pneumatics(int state);
 
 void winch_down_up();
+
+int shooter_motor_speed();
