@@ -1,3 +1,5 @@
+//#include "smallbot_autonomy.h"
+
 void drive_inches_speed(float inches, int speed){
 	int left = motor_get_left_encoder();
 	int right = motor_get_right_encoder();
@@ -63,30 +65,40 @@ void reverse_until_bumpers(){
 	motor_set(0, 0);
 }
 
+// this tries to keep the amount rotated by each side equal
 void rotate_degrees_right(float degrees){
-	int left = motor_get_left_encoder();
-	int right = motor_get_right_encoder();
+	int leftstart  = motor_get_left_encoder();  // left will be increasing
+	int rightstart = motor_get_right_encoder(); // right will be decreasing
 
+	int left = 0, right = 0;
 	int dist = degrees_to_drive_encoder(degrees);
 
 	motor_set(-DRIVE_MOTOR_TURN_SPEED, DRIVE_MOTOR_TURN_SPEED);
 
 	//turn right a certain degree and then stop to release balls to big bot
 	while (true){
-		int newleft = motor_get_left_encoder();
+		int newleft  = motor_get_left_encoder();
 		int newright = motor_get_right_encoder();
 
-		if (((newleft - left) > dist) && ((newright - right) < (-dist)))
+		left += newleft - leftstart;
+		right += newright - rightstart;
+
+		int diff = left + right; // ideally should be zero
+		motor_set(-DRIVE_MOTOR_TURN_SPEED+diff, DRIVE_MOTOR_TURN_SPEED+diff);
+
+		if (((newleft - leftstart) > dist) && ((newright - rightstart) < (-dist)))
 			break;
 	}
 
-	motor_set(0,0);
+	motor_set(0, 0);
 }
 
+// this tries to keep the amount rotated by each side equal
 void rotate_degrees_left(float degrees){
-	int left = motor_get_left_encoder();
-	int right = motor_get_right_encoder();
+	int leftstart = motor_get_left_encoder();
+	int rightstart = motor_get_right_encoder();
 
+	int left = 0, right = 0;
 	int dist = degrees_to_drive_encoder(degrees);
 
 	motor_set(DRIVE_MOTOR_TURN_SPEED, -DRIVE_MOTOR_TURN_SPEED);
@@ -96,7 +108,13 @@ void rotate_degrees_left(float degrees){
 		int newleft = motor_get_left_encoder();
 		int newright = motor_get_right_encoder();
 
-		if (((newleft - left) < -dist) && ((newright - right) > dist))
+		left += newleft - leftstart;
+		right += newright - rightstart;
+
+		int diff = right + left;
+		motor_set(DRIVE_MOTOR_TURN_SPEED-diff, -DRIVE_MOTOR_TURN_SPEED-diff);
+
+		if (((newleft - leftstart) < -dist) && ((newright - rightstart) > dist))
 			break;
 	}
 
@@ -104,32 +122,38 @@ void rotate_degrees_left(float degrees){
 }
 
 
-void dump_balls(){
-	int left = pusher_get_left_encoder(); // LEFT IS NEGATIVE
-	int right = pusher_get_right_encoder(); // RIGHT IS POSITIVE
-
-	// turn on pusher and intake
+void dump_balls_low(){
+	// turn on intake for a specified time
 	intake_set(INTAKE_OUT_SPEED);
-	pusher_set(PUSHER_OUT_SPEED / 4);
+	top_intake_set(TOP_INTAKE_IN_SPEED); // we want the balls to go out the low, not the high
+
+	time start = nSysTime;
 
 	// push out all 4 balls for big bot to pull in
-	while (true){
-		int newleft = pusher_get_left_encoder();
-		int newright = pusher_get_right_encoder();
-
-		if (((newleft - left) < -PUSHER_ENC_DIST_THRESH) || ((newright - right) > PUSHER_ENC_DIST_THRESH))
-			break;
-	}
+	while (nSysTime - start < DUMP_BALL_LOW_INTAKE_TIME)
+		;
 
 	//shut off intake
-	//reverse pusher to initial position
 	intake_set(INTAKE_OFF_SPEED);
-	pusher_set(PUSHER_IN_SPEED / 4);
-
-	while(!pusher_get_home_switch()){}
-
-	pusher_set(PUSHER_OFF_SPEED);
+	top_intake_set(TOP_INTAKE_OFF_SPEED);
 }
+
+void dump_balls_high(){
+	// turn on intake for a specified time
+	intake_set(INTAKE_IN_SPEED);
+	top_intake_set(TOP_INTAKE_OUT_SPEED); // we want the balls to go out the low, not the high
+
+	time start = nSysTime;
+
+	// push out all 4 balls for big bot to pull in
+	while (nSysTime - start < DUMP_BALL_HIGH_INTAKE_TIME)
+		;
+
+	//shut off intake
+	intake_set(INTAKE_OFF_SPEED);
+	top_intake_set(TOP_INTAKE_OFF_SPEED);
+}
+
 
 void pickup_balls(){
 	drive_inches(3);
