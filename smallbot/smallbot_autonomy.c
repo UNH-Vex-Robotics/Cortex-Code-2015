@@ -65,30 +65,40 @@ void reverse_until_bumpers(){
 	motor_set(0, 0);
 }
 
+// this tries to keep the amount rotated by each side equal
 void rotate_degrees_right(float degrees){
-	int left = motor_get_left_encoder();
-	int right = motor_get_right_encoder();
+	int leftstart  = motor_get_left_encoder();  // left will be increasing
+	int rightstart = motor_get_right_encoder(); // right will be decreasing
 
+	int left = 0, right = 0;
 	int dist = degrees_to_drive_encoder(degrees);
 
 	motor_set(-DRIVE_MOTOR_TURN_SPEED, DRIVE_MOTOR_TURN_SPEED);
 
 	//turn right a certain degree and then stop to release balls to big bot
 	while (true){
-		int newleft = motor_get_left_encoder();
+		int newleft  = motor_get_left_encoder();
 		int newright = motor_get_right_encoder();
 
-		if (((newleft - left) > dist) && ((newright - right) < (-dist)))
+		left += newleft - leftstart;
+		right += newright - rightstart;
+
+		int diff = left + right; // ideally should be zero
+		motor_set(-DRIVE_MOTOR_TURN_SPEED+diff, DRIVE_MOTOR_TURN_SPEED+diff);
+
+		if (((newleft - leftstart) > dist) && ((newright - rightstart) < (-dist)))
 			break;
 	}
 
-	motor_set(0,0);
+	motor_set(0, 0);
 }
 
+// this tries to keep the amount rotated by each side equal
 void rotate_degrees_left(float degrees){
-	int left = motor_get_left_encoder();
-	int right = motor_get_right_encoder();
+	int leftstart = motor_get_left_encoder();
+	int rightstart = motor_get_right_encoder();
 
+	int left = 0, right = 0;
 	int dist = degrees_to_drive_encoder(degrees);
 
 	motor_set(DRIVE_MOTOR_TURN_SPEED, -DRIVE_MOTOR_TURN_SPEED);
@@ -98,7 +108,13 @@ void rotate_degrees_left(float degrees){
 		int newleft = motor_get_left_encoder();
 		int newright = motor_get_right_encoder();
 
-		if (((newleft - left) < -dist) && ((newright - right) > dist))
+		left += newleft - leftstart;
+		right += newright - rightstart;
+
+		int diff = right + left;
+		motor_set(DRIVE_MOTOR_TURN_SPEED-diff, -DRIVE_MOTOR_TURN_SPEED-diff);
+
+		if (((newleft - leftstart) < -dist) && ((newright - rightstart) > dist))
 			break;
 	}
 
