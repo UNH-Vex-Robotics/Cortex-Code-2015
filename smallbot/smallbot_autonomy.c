@@ -8,6 +8,35 @@ void drive_inches_speed(float inches, int speed){
 
 	int dist = inches_to_drive_encoder(inches);
 
+	float startDeg = gyro_get_degrees();
+
+	// gyro go-straight
+	if(forward){
+		motor_set(speed, speed);
+		while(true){
+			float diff = gyro_get_degrees() - startDeg;
+			// if difference in heading positive, add more to right
+			motor_set(speed + diff / 5.0, speed - diff / 5.0);
+
+			if( (newleft - left) > dist && (newright - right) > dist )
+				break;
+		}
+	} else {
+		motor_set(-speed, -speed);
+		while(true){
+			float diff = gyro_get_degrees() - startDeg;
+			// if difference in heading positive, add more to left
+			motor_set(-speed - diff / 5.0, -speed + diff / 5.0);
+
+			if( (motor_get_left_encoder() - left) > dist && (motor_get_right_encoder() - right) > dist )
+				break;
+		}
+	}
+
+	motor_set(0, 0);
+	return;
+
+	// encoder go-straight
 	if(forward){
 		motor_set(speed, speed);
 		while(true){
@@ -15,11 +44,11 @@ void drive_inches_speed(float inches, int speed){
 			int newright = motor_get_right_encoder();
 
 			int read_diff = (newleft - left) - (newright - right);
-			if(read_diff > 20 || read_diff < -20){ // rebalance drive outputs // negative means too much right
+			if(read_diff > 5 || read_diff < -5){ // rebalance drive outputs // negative means too much right
 				motor_set(speed + read_diff / 5, speed - read_diff / 5);
 			}
 
-			if( (newleft - left) > dist && (newright - right) > dist )
+			if( (motor_get_left_encoder() - left) < dist && (motor_get_right_encoder() - right) < dist )
 				break;
 		}
 	} else {
@@ -29,7 +58,7 @@ void drive_inches_speed(float inches, int speed){
 			int newright = motor_get_right_encoder();
 
 			int read_diff = (newleft - left) - (newright - right);
-			if(read_diff > 20 || read_diff < -20){ // rebalance drive outputs // negative means too much right // this might be wacked
+			if(read_diff > 5 || read_diff < -5){ // rebalance drive outputs // negative means too much right // this might be wacked
 				motor_set(-speed - read_diff / 4, -speed + read_diff / 4);
 			}
 

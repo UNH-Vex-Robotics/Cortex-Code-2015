@@ -1,5 +1,6 @@
 //#include "smallbot_control.h"
 
+/* Motors */
 void motor_set(int right, int left){
 	if(right < 5 && right > -5) right = 0;
 	if(left  < 5 && left  > -5) left  = 0;
@@ -15,26 +16,10 @@ void motor_set(int right, int left){
 	motor[LeftDriveMotorRear]   = left;
 }
 
-void intake_set(int speed){
-	motor[Intake]  = speed;
-}
-
-void top_intake_set(int speed){
-	motor[TopIntake] = speed;
-}
-
 int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMotorMiddle); }
 int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMotorMiddle); }
 
-int bumperswitch_get_left(){ return !SensorValue[LeftRearBumper]; }
-int bumperswitch_get_right(){ return !SensorValue[RightRearBumper]; }
-
-linestate linetracker_get(){
-	return (SensorValue(RightLineFollow)  > LINE_THRESH) |
-	       (SensorValue(MiddleLineFollow) > LINE_THRESH) << 1 |
-	       (SensorValue(LeftLineFollow)   > LINE_THRESH) << 2;
-}
-
+/* Drive Encoder */
 float drive_encoder_to_inches (int encoder_value){
 	return ((DRIVE_WHEEL_CIRC*encoder_value)/360.0);
 }
@@ -48,5 +33,43 @@ float drive_encoder_to_degrees (int encoder_value){
 }
 
 int degrees_to_drive_encoder (float degrees_value){
-	return (degrees_value*(1308/360)) * 1.13; // add 15% scaling factor because we are undershooting a little
+	return (degrees_value*(1308/360)) * 1.13; // add scaling factor because we are undershooting a little
 }
+
+/* Gyro */
+int get_gyro(){
+	return SensorValue(ChassisGyro);
+}
+
+float get_gyro_degrees(){
+	return gyroTicksToDegrees(getGyro());
+}
+
+int gyro_degrees_to_ticks(float deg){
+	return deg * GYRO_TICKS_PER_DEGREE;
+}
+
+float gyro_ticks_to_degrees(int ticks){
+	return ticks / GYRO_TICKS_PER_DEGREE;
+}
+
+/* Intake */
+void intake_set(int speed){
+	motor[Intake]  = speed;
+}
+
+void top_intake_set(int speed){
+	motor[TopIntake] = speed;
+}
+
+/* Bumper Switches */
+int bumperswitch_get_left(){ return !SensorValue[LeftRearBumper]; }
+int bumperswitch_get_right(){ return !SensorValue[RightRearBumper]; }
+
+/* Line Sensors */
+linestate linetracker_get(){
+	return (SensorValue(RightLineFollow)  > LINE_THRESH) |
+	       (SensorValue(MiddleLineFollow) > LINE_THRESH) << 1 |
+	       (SensorValue(LeftLineFollow)   > LINE_THRESH) << 2;
+}
+
