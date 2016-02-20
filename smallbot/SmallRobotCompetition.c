@@ -32,6 +32,7 @@
 
 #include "Vex_Competition_Includes.c"   // Main competition background code...do not modify!
 
+#include "field.h"
 #include "smallbot_control.h"
 #include "smallbot_autonomy.h"
 
@@ -122,5 +123,6 @@ task usercontrol() {
 	}
 }
 
+#include "field.c"
 #include "smallbot_control.c"
 #include "smallbot_autonomy.c"

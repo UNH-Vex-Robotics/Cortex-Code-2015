@@ -8,7 +8,9 @@ void goToPoint(Point p){
 
 	Point start = currentPoint;
 
-	Point diff = { p.x - start.x, p.y - start.y };
+	Point diff;
+	diff.x = p.x - start.x;
+	diff.y = p.y - start.y;
 
 	float dist = sqrt(diff.x * diff.x + diff.y * diff.y);
 
