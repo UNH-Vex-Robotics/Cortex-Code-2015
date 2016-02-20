@@ -150,6 +150,11 @@ void rotate_degrees_left(float degrees){
 	motor_set(0,0);
 }
 
+void rotate_degrees(float degrees){
+	if(degrees < 0) rotate_degrees_right(-degrees);
+	else            rotate_degrees_left(degrees);
+}
+
 
 void dump_balls_low(){
 	// turn on intake for a specified time
