@@ -33,6 +33,7 @@
 
 #include "Vex_Competition_Includes.c"   // Main competition background code...do not modify!
 
+#include "field.h"
 #include "smallbot_control.h"
 #include "smallbot_autonomy.h"
 
@@ -73,15 +74,9 @@ task usercontrol() {
 	while (true) {
 		// Drive motors
 		motor_set(vexRT[Ch2], vexRT[Ch3]);
-
-		// Pusher
-		pusher_set(vexRT[Btn5U] * PUSHER_OUT_SPEED + vexRT[Btn5D] * PUSHER_IN_SPEED * !pusher_get_home_switch());
-
-		// Intake
-		intake_set(vexRT[Btn6U] * INTAKE_IN_SPEED + vexRT[Btn6D] * INTAKE_OUT_SPEED);
-
 	}
 }
 
+#include "field.c"
 #include "smallbot_control.c"
 #include "smallbot_autonomy.c"
