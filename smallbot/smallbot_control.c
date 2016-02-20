@@ -42,7 +42,7 @@ int get_gyro(){
 }
 
 float get_gyro_degrees(){
-	return gyroTicksToDegrees(getGyro());
+	return gyro_ticks_to_degrees(get_gyro());
 }
 
 int gyro_degrees_to_ticks(float deg){
@@ -72,4 +72,3 @@ linestate linetracker_get(){
 	       (SensorValue(MiddleLineFollow) > LINE_THRESH) << 1 |
 	       (SensorValue(LeftLineFollow)   > LINE_THRESH) << 2;
 }
-
