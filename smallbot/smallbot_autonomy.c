@@ -11,13 +11,16 @@ void drive_inches_speed(float inches, int speed){
 	float startDeg = gyro_get_degrees();
 
 	// esitmated travel:
-	//  x dist * cosDegrees(startDeg), 
-	//  y dist * sinDegrees(startDeg), 
+	//  x dist * cosDegrees(startDeg),
+	//  y dist * sinDegrees(startDeg),
 
 	// gyro go-straight
 	if(forward){
 		motor_set(speed, speed);
 		while(true){
+			int newleft = motor_get_left_encoder();
+			int newright = motor_get_right_encoder();
+
 			float diff = gyro_get_degrees() - startDeg;
 			// if difference in heading positive, add more to right
 			motor_set(speed + diff / 5.0, speed - diff / 5.0);
@@ -78,10 +81,11 @@ void drive_to_dxdy(float dx, float dy){
 
 	float startDeg = gyro_get_degrees();
 
-	float heading = heading_to_dxdy(x, y);
+	float heading = heading_to_dxdy(dx, dy);
 	string str;
 	sprintf(str, "head %3.2f", heading);
 	displayLCDString(0, 0, str);
+
 	face_heading(heading);
 	sprintf(str, "done");
 	displayLCDString(0, 0, str);
@@ -124,7 +128,7 @@ void drive_to_dxdy(float dx, float dy){
 
 		if(newdist < 4.0) speed = 25; // if closer, go slower
 
-		motor_speed(speed - speeddiff, speed + speeddiff);
+		motor_set(speed - speeddiff, speed + speeddiff);
 
 		lastdist = newdist;
 
@@ -139,32 +143,8 @@ void drive_to_dxdy(float dx, float dy){
 	return;
 
 	// esitmated travel:
-	//  x = inches * cosDegrees(startDeg), 
-	//  y = inches * sinDegrees(startDeg), 
-
-	// gyro go-straight
-	if(forward){
-		motor_set(speed, speed);
-		while(true){
-			float diff = gyro_get_degrees() - startDeg;
-			// if difference in heading positive, add more to right
-			motor_set(speed + diff / 5.0, speed - diff / 5.0);
-
-			if( (newleft - left) > dist && (newright - right) > dist )
-				break;
-		}
-	} else {
-		motor_set(-speed, -speed);
-		while(true){
-			float diff = gyro_get_degrees() - startDeg;
-			// if difference in heading positive, add more to left
-			motor_set(-speed - diff / 5.0, -speed + diff / 5.0);
-
-			if( (motor_get_left_encoder() - left) > dist && (motor_get_right_encoder() - right) > dist )
-				break;
-		}
-	}
-
+	//  x = inches * cosDegrees(startDeg),
+	//  y = inches * sinDegrees(startDeg),
 }
 
 void drive_inches(float inches){
