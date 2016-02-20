@@ -79,7 +79,12 @@ void drive_to_dxdy(float dx, float dy){
 	float startDeg = gyro_get_degrees();
 
 	float heading = heading_to_dxdy(x, y);
+	string str;
+	sprintf(str, "head %3.2f", heading);
+	displayLCDString(0, 0, str);
 	face_heading(heading);
+	sprintf(str, "done");
+	displayLCDString(0, 0, str);
 
 	int speed = 50; // start off at 50; gets smaller when closer to target
 
@@ -205,6 +210,9 @@ void rotate_degrees_right(float degrees){
 
 		if (((newleft - leftstart) > dist) && ((newright - rightstart) < (-dist)))
 			break;
+
+			displayLCDNumber(1, 0, diff, 5);
+		wait1Msec(25);
 	}
 
 	motor_set(0, 0);
@@ -234,6 +242,8 @@ void rotate_degrees_left(float degrees){
 
 		if (((newleft - leftstart) < -dist) && ((newright - rightstart) > dist))
 			break;
+
+		wait1Msec(25);
 	}
 
 	motor_set(0,0);
