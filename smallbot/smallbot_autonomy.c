@@ -179,6 +179,7 @@ void rotate_degrees_right(float degrees){
 		right += newright - rightstart;
 
 		int diff = left + right; // ideally should be zero
+		diff *= .05;
 		motor_set(-DRIVE_MOTOR_TURN_SPEED+diff, DRIVE_MOTOR_TURN_SPEED+diff);
 
 		if (((newleft - leftstart) > dist) && ((newright - rightstart) < (-dist)))
@@ -207,6 +208,7 @@ void rotate_degrees_left(float degrees){
 		right += newright - rightstart;
 
 		int diff = right + left;
+		diff *= .05;
 		motor_set(DRIVE_MOTOR_TURN_SPEED-diff, -DRIVE_MOTOR_TURN_SPEED-diff);
 
 		if (((newleft - leftstart) < -dist) && ((newright - rightstart) > dist))
