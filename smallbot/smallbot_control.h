@@ -18,9 +18,9 @@ const int DUMP_BALL_LOW_INTAKE_TIME  = 1500;
 const int DUMP_BALL_HIGH_INTAKE_TIME = 1500;
 
 // speed defines for vairous subsystems/actions
-const int INTAKE_IN_SPEED  = 127;
+const int INTAKE_IN_SPEED  = 40;
 const int INTAKE_OFF_SPEED = 0;
-const int INTAKE_OUT_SPEED = -127;
+const int INTAKE_OUT_SPEED = -40;
 
 const int TOP_INTAKE_OUT_SPEED = 127;
 const int TOP_INTAKE_OFF_SPEED = 0;

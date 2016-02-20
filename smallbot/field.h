@@ -137,19 +137,11 @@
 
 */
 
-// Use INCHES
-typedef struct {
-	float x, y;
-} Point;
+float currentx = 7.5;
+float currenty = 36;
 
-
-Point currentPoint;
-
-void field_setup();
-
-Point test(){
-	Point p;
-	p.x = 0;
-	p.y = 0;
-	return p;
-}
+void go_to_point(float x, float y);
+void get_balls_at_point(float x, float y);
+void face_heading(float heading);
+void heading_to_dxdy(float dx, float dy);
+void dist_to_dxdy(float dx, float dy);

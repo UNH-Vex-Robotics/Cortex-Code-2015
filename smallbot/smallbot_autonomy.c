@@ -10,6 +10,10 @@ void drive_inches_speed(float inches, int speed){
 
 	float startDeg = gyro_get_degrees();
 
+	// esitmated travel:
+	//  x dist * cosDegrees(startDeg), 
+	//  y dist * sinDegrees(startDeg), 
+
 	// gyro go-straight
 	if(forward){
 		motor_set(speed, speed);
@@ -67,6 +71,89 @@ void drive_inches_speed(float inches, int speed){
 		}
 	}
 	motor_set(0, 0);
+}
+
+void drive_to_dxdy(float dx, float dy){
+	int dist = inches_to_drive_encoder(dist_to_dxdy(dx, dy));
+
+	float startDeg = gyro_get_degrees();
+
+	float heading = heading_to_dxdy(x, y);
+	face_heading(heading);
+
+	int speed = 50; // start off at 50; gets smaller when closer to target
+
+	float totaldx = 0, totaldy = 0;
+
+	int lastleft = motor_get_left_encoder();
+	int lastright = motor_get_right_encoder();
+	int lastheading = heading;
+	float lastdist = dist_to_dxdy(dx, dy);
+
+	motor_set(speed, speed);
+
+	while(lastdist > .5){
+		int newleft = motor_get_left_encoder();
+		int newright = motor_get_right_encoder();
+
+		float newheading = gyro_get_degrees();
+
+		int aveEnc = (newleft - lastleft + newright - lastright) / 2;
+
+		float distt = drive_encoder_to_inches(aveEnc);
+
+		float dyinch = distt * sinDegrees(newheading);
+		float dxinch = distt * cosDegrees(newheading);
+
+		totaldx += dxinch;
+		totaldy += dyinch;
+
+		float newtargetheading = heading_to_dxdy(dx - totaldx, dy - totaldy);
+		float newdist = dist_to_dxdy(dx - totaldx, dy - totaldy);
+
+		float speeddiff = (newtargetheading - newheading);
+
+		if(newdist < 4.0) speed = 25; // if closer, go slower
+
+		motor_speed(speed - speeddiff, speed + speeddiff);
+
+		wait1Msec(25); // bigger numbers will result in a larger 'averaging effect'
+	}
+
+	motor_set(0, 0);
+
+	currentx += totaldx;
+	currenty += totaldy;
+
+	return;
+
+	// esitmated travel:
+	//  x = inches * cosDegrees(startDeg), 
+	//  y = inches * sinDegrees(startDeg), 
+
+	// gyro go-straight
+	if(forward){
+		motor_set(speed, speed);
+		while(true){
+			float diff = gyro_get_degrees() - startDeg;
+			// if difference in heading positive, add more to right
+			motor_set(speed + diff / 5.0, speed - diff / 5.0);
+
+			if( (newleft - left) > dist && (newright - right) > dist )
+				break;
+		}
+	} else {
+		motor_set(-speed, -speed);
+		while(true){
+			float diff = gyro_get_degrees() - startDeg;
+			// if difference in heading positive, add more to left
+			motor_set(-speed - diff / 5.0, -speed + diff / 5.0);
+
+			if( (motor_get_left_encoder() - left) > dist && (motor_get_right_encoder() - right) > dist )
+				break;
+		}
+	}
+
 }
 
 void drive_inches(float inches){
@@ -151,6 +238,8 @@ void rotate_degrees_left(float degrees){
 }
 
 void rotate_degrees(float degrees){
+	while(degrees > 180.0){ degrees -= 360; }
+	while(degrees < -180.0){ degrees += 360; }
 	if(degrees < 0) rotate_degrees_right(-degrees);
 	else            rotate_degrees_left(degrees);
 }

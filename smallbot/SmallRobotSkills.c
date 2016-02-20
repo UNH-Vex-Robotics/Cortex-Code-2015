@@ -42,7 +42,12 @@ void pre_auton() {
 	bStopTasksBetweenModes = true;
 }
 
-task autonomous() {
+task autonomous(){
+	get_balls_at_point(48, 48);
+	wait1Msec(500);
+}
+
+void simple_autonomous() {
 	wait1Msec(500);
 // on close edge of tile drive_inches(14.5); // works
 	drive_inches(14.5);

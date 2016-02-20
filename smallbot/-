@@ -1,0 +1,73 @@
+void field_setup(){
+	// robot dimmension is 14 wide by 15 long
+	currentPoint.x = 7.5;
+	currentPoint.y = 36;
+}
+
+
+// this assumes that it is 100% ok to go in a direct line from the current location to the target point
+void go_to_point(float x, float y){
+	// determine angle to go at
+	// determine distance to go
+	// go!
+
+	Point start = currentPoint;
+
+	Point diff;
+	diff.x = p.x - start.x;
+	diff.y = p.y - start.y;
+
+	float dist = sqrt(diff.x * diff.x + diff.y * diff.y);
+
+	if(dist < 0.05) return;
+
+	float deltaheading;
+	if(abs(diff.x) <= 0.5){
+		deltaheading = 90;
+	} else {
+		deltaheading = acos(diff.x/dist) * 180 / PI;
+	}
+
+	if(diff.y < 0)
+		deltaheading = -deltaheading;
+
+	float curheading = get_gyro_degrees();
+
+	rotate_degrees(deltaheading);
+
+	drive_inches(dist);
+}
+
+// this assumes that it is 100% ok to go in a direct line from the current location to the target point
+void get_balls_at(float x, float y){
+	// determine angle to go at
+	// determine distance to go
+	// go!
+
+	float startheading = get_gyro_degrees();
+
+	Point diff;
+	diff.x = x - currentx;
+	diff.y = y - currenty;
+
+	// dist here should always be greater than the radious of the robot
+	float dist = sqrt(diff.x * diff.x + diff.y * diff.y);
+
+	if(dist < 0.05) return; // well shit! we're in our pile!
+	if(dist < 7.5) return; // uh-oh... ^
+
+	float deltaheading;
+	if(abs(diff.x) <= 0.5){
+		deltaheading = 90;
+	} else {
+		deltaheading = acos(diff.x/dist) * 180 / PI;
+	}
+
+	if(diff.y < 0)
+		deltaheading = -deltaheading;
+
+	rotate_degrees(deltaheading);
+	drive_inches(dist);
+
+	pickup_balls(); // this moves us forward, and back.
+}
