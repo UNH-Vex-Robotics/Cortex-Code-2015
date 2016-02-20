@@ -1,9 +1,4 @@
 
-// Use INCHES
-typedef struct {
-	float x, y;
-} Point;
-
 /*
 
 ->  means smallbot start point
@@ -142,10 +137,19 @@ typedef struct {
 
 */
 
+// Use INCHES
+typedef struct {
+	float x, y;
+} Point;
 
-// robot dimmension is 14 wide by 15 long
-const Point START = { 15.0 / 2, 24 + 12 };
-START.x = 7.5;
-START.y = 36;
 
-Point currentPoint = START;
+Point currentPoint;
+
+void field_setup();
+
+Point test(){
+	Point p;
+	p.x = 0;
+	p.y = 0;
+	return p;
+}

@@ -1,3 +1,10 @@
+void field_setup(){
+	// robot dimmension is 14 wide by 15 long
+	currentPoint.x = 7.5;
+	currentPoint.y = 36;
+
+	Point p = test();
+}
 
 
 // this assumes that it is 100% ok to go in a direct line from the current location to the target point
