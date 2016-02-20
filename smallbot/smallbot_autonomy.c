@@ -124,6 +124,10 @@ void drive_to_dxdy(float dx, float dy){
 		float newtargetheading = heading_to_dxdy(dx - totaldx, dy - totaldy);
 		float newdist = dist_to_dxdy(dx - totaldx, dy - totaldy);
 
+		string str3;
+		sprintf(str3, "x %3.2f y %3.2f", dx - totaldx, dy - totaldy);
+		displayLCDString(1, 0, str3);
+
 		float speeddiff = (newtargetheading - newheading);
 
 		if(newdist < 4.0) speed = 25; // if closer, go slower
