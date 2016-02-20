@@ -1,34 +1,18 @@
 // this assumes that it is 100% ok to go in a direct line from the current location to the target point
 void go_to_point(float x, float y){
-	// determine angle to go at
-	// determine distance to go
-	// go!
+	float dx = x - currentx;
+	float dy = y - currenty;
 
-	Point start = currentPoint;
+	float heading = heading_to_dxdy(dx, dy);
 
-	Point diff;
-	diff.x = p.x - start.x;
-	diff.y = p.y - start.y;
+	float dist = dist_to_dxdy(dx, dy);
+	
+	float godx = (dist - 8) * cosDegrees(heading);
+	float gody = (dist - 8) * sinDegrees(heading);
 
-	float dist = sqrt(diff.x * diff.x + diff.y * diff.y);
+	drive_to_dxdy(godx, gody);
+	face_heading(heading); // just to make sure...
 
-	if(dist < 0.05) return;
-
-	float deltaheading;
-	if(abs(diff.x) <= 0.5){
-		deltaheading = 90;
-	} else {
-		deltaheading = acos(diff.x/dist) * 180 / PI;
-	}
-
-	if(diff.y < 0)
-		deltaheading = -deltaheading;
-
-	float curheading = get_gyro_degrees();
-
-	rotate_degrees(deltaheading);
-
-	drive_inches(dist);
 }
 
 // this assumes that it is 100% ok to go in a direct line from the current location to the target point
@@ -40,9 +24,9 @@ void get_balls_at_point(float x, float y){
 	float dx = x - currentx;
 	float dy = y - currenty;
 
-	float heading = heading_to_dxdy(x, y);
+	float heading = heading_to_dxdy(dx, dy);
 
-	float dist = dist_to_dxdy(x, y);
+	float dist = dist_to_dxdy(dx, dy);
 	
 	float godx = (dist - 8) * cosDegrees(heading);
 	float gody = (dist - 8) * sinDegrees(heading);
