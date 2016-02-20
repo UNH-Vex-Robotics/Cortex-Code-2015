@@ -44,12 +44,12 @@ void face_heading(float heading){
 	rotate_degrees(turn);
 }
 
-void heading_to_dxdy(float dx, float dy){
+float heading_to_dxdy(float dx, float dy){
 	// dist here should always be greater than the radious of the robot
 	float dist = dist_to_dxdy(dx, dy);
 
 	float heading;
-	if(abs(dx) = 0.0){
+	if(abs(dx) == 0.0){
 		heading = 90;
 	} else {
 		heading = acos(dx/dist) * 180 / PI;
@@ -61,6 +61,6 @@ void heading_to_dxdy(float dx, float dy){
 	return heading;
 }
 
-void dist_to_dxdy(float dx, float dy){
+float dist_to_dxdy(float dx, float dy){
 	return sqrt(dx * dx + dy * dy);
 }

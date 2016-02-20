@@ -9,6 +9,7 @@ const int DRIVE_MOTOR_PICKUP_SPEED  = 25;
 void drive_inches_speed(float inches, int speed); // can be negative
 void drive_inches(float inches);
 void drive_inches_slow(float inches);
+void drive_to_dxdy(float dx, float dy);
 
 void reverse_until_bumpers();
 

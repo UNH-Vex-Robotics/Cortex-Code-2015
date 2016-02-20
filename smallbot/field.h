@@ -143,5 +143,6 @@ float currenty = 36;
 void go_to_point(float x, float y);
 void get_balls_at_point(float x, float y);
 void face_heading(float heading);
-void heading_to_dxdy(float dx, float dy);
-void dist_to_dxdy(float dx, float dy);
+
+float heading_to_dxdy(float dx, float dy);
+float dist_to_dxdy(float dx, float dy);
