@@ -101,6 +101,10 @@ void drive_to_dxdy(float dx, float dy){
 		int newleft = motor_get_left_encoder();
 		int newright = motor_get_right_encoder();
 
+		string str2;
+		sprintf(str2, "h %3.2f d %3.2f", lastheading, lastdist);
+		displayLCDString(1, 0, str2);
+
 		float newheading = gyro_get_degrees();
 
 		int aveEnc = (newleft - lastleft + newright - lastright) / 2;
@@ -121,6 +125,8 @@ void drive_to_dxdy(float dx, float dy){
 		if(newdist < 4.0) speed = 25; // if closer, go slower
 
 		motor_speed(speed - speeddiff, speed + speeddiff);
+
+		lastdist = newdist;
 
 		wait1Msec(25); // bigger numbers will result in a larger 'averaging effect'
 	}
@@ -211,7 +217,7 @@ void rotate_degrees_right(float degrees){
 		if (((newleft - leftstart) > dist) && ((newright - rightstart) < (-dist)))
 			break;
 
-			displayLCDNumber(1, 0, diff, 5);
+		displayLCDNumber(1, 0, diff, 5);
 		wait1Msec(25);
 	}
 
