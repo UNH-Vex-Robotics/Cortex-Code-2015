@@ -21,7 +21,7 @@ int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMotorMiddle); }
 
 /* Drive Encoder */
 float drive_encoder_to_inches (int encoder_value){
-	return ((DRIVE_WHEEL_CIRC*encoder_value)/360.0);
+	return ((DRIVE_WHEEL_CIRC*((float)encoder_value))/360.0);
 }
 
 int inches_to_drive_encoder (float inches){
@@ -33,7 +33,9 @@ float drive_encoder_to_degrees (int encoder_value){
 }
 
 int degrees_to_drive_encoder (float degrees_value){
-	return (degrees_value*(1308.0/360)) * 1.13; // add scaling factor because we are undershooting a little
+	return (degrees_value*(1308.0/360) * .5); // add scaling factor because we are undershooting a little
+	// for using encoders...
+	// return (degrees_value*(1308.0/360)) * 1.13; // add scaling factor because we are undershooting a little
 }
 
 /* Gyro */
@@ -50,7 +52,7 @@ int gyro_degrees_to_ticks(float deg){
 }
 
 float gyro_ticks_to_degrees(int ticks){
-	return ticks / GYRO_TICKS_PER_DEGREE;
+	return ((float)ticks) / ((float)GYRO_TICKS_PER_DEGREE);
 }
 
 /* Intake */

@@ -76,6 +76,42 @@ void drive_inches_speed(float inches, int speed){
 	motor_set(0, 0);
 }
 
+void drive_to_dxdy2(float dx, float dy){
+	float startDist = dist_to_dxdy(dx, dy);
+
+	float targetx = currentx + dx;
+	float targety = currenty + dy;
+
+	// int dist = inches_to_drive_encoder(startDist);
+
+	float startHeading = get_gyro_degrees();
+	float neededHeading = heading_to_dxdy(dx, dy);
+
+	face_heading(neededHeading);
+
+	float startHeading2 = get_gyro_degrees();
+
+	string a;
+	sprintf(a, "s1 %3.1 s2 %3.1", startHeading, startHeading2);
+	displayLCDString(0, 0, a);
+
+	wait1Msec(1000);
+
+	int speed = 20;
+
+	int lastleft = motor_get_left_encoder();
+	int lastright = motor_get_right_encoder();
+
+	motor_set(speed, speed);
+
+	while(abs(targetx - currentx) > 2.0 && abs(targety - currenty) > 2.0){
+		int newleft = motor_get_left_encoder();
+		int newright = motor_get_right_encoder();
+
+
+	}
+}
+
 void drive_to_dxdy(float dx, float dy){
 	int dist = inches_to_drive_encoder(dist_to_dxdy(dx, dy));
 
@@ -90,13 +126,13 @@ void drive_to_dxdy(float dx, float dy){
 	sprintf(str, "done");
 	displayLCDString(0, 0, str);
 
-	int speed = 50; // start off at 50; gets smaller when closer to target
+	int speed = 30; // start off at 50; gets smaller when closer to target
 
 	float totaldx = 0, totaldy = 0;
 
 	int lastleft = motor_get_left_encoder();
 	int lastright = motor_get_right_encoder();
-	int lastheading = heading;
+	float lastheading = heading;
 	float lastdist = dist_to_dxdy(dx, dy);
 
 	motor_set(speed, speed);
@@ -106,17 +142,18 @@ void drive_to_dxdy(float dx, float dy){
 		int newright = motor_get_right_encoder();
 
 		string str2;
-		sprintf(str2, "h %3.2f d %3.2f", lastheading, lastdist);
+		sprintf(str2, "lh %3.1f d %3.2f", lastheading, lastdist);
 		displayLCDString(1, 0, str2);
 
-		float newheading = gyro_get_degrees();
+		float newheading = ((float)SensorValue[ChassisGyro]) / 10.0;
+		//float newheading = gyro_get_degrees();
 
 		int aveEnc = (newleft - lastleft + newright - lastright) / 2;
 
 		float distt = drive_encoder_to_inches(aveEnc);
 
-		float dyinch = distt * sinDegrees(newheading);
-		float dxinch = distt * cosDegrees(newheading);
+		float dyinch = distt * sinDegrees((lastheading + newheading) / 2.0);
+		float dxinch = distt * cosDegrees((lastheading + newheading) / 2.0);
 
 		totaldx += dxinch;
 		totaldy += dyinch;
@@ -124,19 +161,37 @@ void drive_to_dxdy(float dx, float dy){
 		float newtargetheading = heading_to_dxdy(dx - totaldx, dy - totaldy);
 		float newdist = dist_to_dxdy(dx - totaldx, dy - totaldy);
 
+		float speeddiff = (newtargetheading - newheading);
+		if(speeddiff < -180.0) speeddiff += 360.0;
+		if(speeddiff >  180.0) speeddiff -= 360.0;
+
 		string str3;
-		sprintf(str3, "t %3.2f d %3.2f", totaldx, dxinch);
+		// sprintf(str3, "n %3.1f n %3.1f", newheading, newtargetheading);
+		// sprintf(str3, "nh %3.2f s %3.2f", newheading, sinDegrees(newheading));
+		// sprintf(str3, "d %3.2f y %3.2f", distt, dxinch);
+		// sprintf(str3, "t %3.2f s %3.2f", totaldx, dxinch);
+		// sprintf(str3, "nd %3.2f d %3.2f", newdist, dist);
+		// sprintf(str3, "x %3.2f y %3.2f", dxinch, dyinch);
+		// sprintf(str3, "s %3.2f t %3.2f", speeddiff, newdist);
+		// sprintf(str3, "s %3d t %3.2f", aveEnc, distt);
+		sprintf(str3, "th %3.1f sd %3.1f", newtargetheading, speeddiff);
 		displayLCDString(0, 0, str3);
 
-		float speeddiff = (newtargetheading - newheading);
+		if(newdist < 8.0) speed = 25; // if closer, go slower
 
-		if(newdist < 4.0) speed = 25; // if closer, go slower
+		speeddiff *= 0.15;
 
-		motor_set(speed - speeddiff, speed + speeddiff);
+		motor_set(speed + speeddiff, speed - speeddiff);
 
 		lastdist = newdist;
+		lastheading = newheading;
+
+		lastleft = newleft;
+		lastright = newright;
 
 		wait1Msec(25); // bigger numbers will result in a larger 'averaging effect'
+		//motor_set(0, 0);
+		//wait1Msec(10000);
 	}
 
 	motor_set(0, 0);
@@ -160,7 +215,7 @@ void drive_inches_slow(float inches){
 }
 
 void reverse_until_bumpers(){
-	motor_set(-25, -25);
+	motor_set(-34, -34);
 
 	//drive in reverse until bumper switches hit big bot
 	while(! (bumperswitch_get_left() && bumperswitch_get_right()) ){
@@ -177,6 +232,8 @@ void reverse_until_bumpers(){
 }
 
 // this tries to keep the amount rotated by each side equal
+
+
 void rotate_degrees_right(float degrees){
 	int leftstart  = motor_get_left_encoder();  // left will be increasing
 	int rightstart = motor_get_right_encoder(); // right will be decreasing
@@ -185,6 +242,8 @@ void rotate_degrees_right(float degrees){
 	int dist = degrees_to_drive_encoder(degrees);
 
 	motor_set(-DRIVE_MOTOR_TURN_SPEED, DRIVE_MOTOR_TURN_SPEED);
+
+	SensorValue[ChassisGyro] = 0;
 
 	//turn right a certain degree and then stop to release balls to big bot
 	while (true){
@@ -200,6 +259,8 @@ void rotate_degrees_right(float degrees){
 
 		if (((newleft - leftstart) > dist) && ((newright - rightstart) < (-dist)))
 			break;
+		//if(get_gyro_degrees() < -degrees)
+		//	break;
 
 		displayLCDNumber(1, 0, diff, 5);
 		wait1Msec(25);
@@ -218,6 +279,8 @@ void rotate_degrees_left(float degrees){
 
 	motor_set(DRIVE_MOTOR_TURN_SPEED, -DRIVE_MOTOR_TURN_SPEED);
 
+	SensorValue[ChassisGyro] = 0;
+
 	//turn right a certain degree and then stop to release balls to big bot
 	while (true){
 		int newleft = motor_get_left_encoder();
@@ -232,6 +295,8 @@ void rotate_degrees_left(float degrees){
 
 		if (((newleft - leftstart) < -dist) && ((newright - rightstart) > dist))
 			break;
+		if(get_gyro_degrees() > degrees)
+			break;
 
 		wait1Msec(25);
 	}
@@ -239,6 +304,7 @@ void rotate_degrees_left(float degrees){
 	motor_set(0,0);
 }
 
+// LEFT/COUNTER-CLOCKWISE IS POSITIVE
 void rotate_degrees(float degrees){
 	while(degrees > 180.0){ degrees -= 360; }
 	while(degrees < -180.0){ degrees += 360; }

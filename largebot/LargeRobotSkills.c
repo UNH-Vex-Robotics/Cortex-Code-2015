@@ -38,8 +38,8 @@ void pre_auton() {
 task autonomous() {
 	int shots_taken = 0;
 
-	intake_set(-INTAKE_SPEED);
-	belt_set(BELT_SPEED);
+	intake_set(0);
+	belt_set(0);
 
 	shooter_set_target_speed(84);
 	shooter_motor_set(84);
@@ -66,16 +66,19 @@ task autonomous() {
 	    	winch_set(0);
 	    	wait_time = nSysTime;
 	    }
-		} else if (state == 2 && SensorValue[LiftSonar] > 65 && SensorValue[LiftSonar] < 140){
+		} else if (state == 2){
+		//} else if (state == 2 && SensorValue[LiftSonar] > 55 && SensorValue[LiftSonar] < 140){
 			state++;
 			winch_set(WINCH_UP_SPEED);
+    	shooter_motor_set(120);
 		} else if(state == 3){
-		  if(winch_at_top()){
+		  if(winch_at_top() || SensorValue[WinchRaised]){
 	    	winch_set(0);
 	    	state++;
 		  }
 	  } else if(state == 4){
 	    // hopefully we win!!!
+	  	shooter_motor_set(103);
 	  }
 	}
 }
@@ -84,7 +87,7 @@ task usercontrol() {
 	int shots_taken = 0;
 
 	//shooter_set_target_speed(84);
-	//shooter_motor_set(84);
+	shooter_motor_set(89);
 
 	while (true) {
 		//shots_taken += auto_shoot();
@@ -95,8 +98,8 @@ task usercontrol() {
 		shooter_increment_speed(vexRT[Btn7R]); // NOTE !!! THIS WILL NOT PLAY NICE WITH THE auto_shoot function!!! You have been warned
 		shooter_decrement_speed(vexRT[Btn7L]); // NOTE !!! THIS WILL NOT PLAY NICE WITH THE auto_shoot function!!! You have been warned
 
-		if(vexRT[Btn7U])
-			shooter_motor_set(shooter_get_target_speed());
+		if(vexRT[Btn7L])
+			shooter_motor_set(89);
 		else if(vexRT[Btn7U])
 			shooter_motor_set(0);
 

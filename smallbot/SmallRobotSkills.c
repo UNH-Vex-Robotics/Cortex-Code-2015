@@ -43,12 +43,19 @@ void pre_auton() {
 	bStopTasksBetweenModes = true;
 }
 
+void simple_autonomous();
+
 task autonomous(){
+	simple_autonomous();
+	return;
+	SensorFullCount[ChassisGyro] = 3600 * 100; // 100 revolutions
+	SensorValue[ChassisGyro] = 0;
 	get_balls_at_point(48, 48);
 	wait1Msec(500);
+	displayLCDCenteredString(0, "Done!!!!");
 }
 
-void simple_autonomous() {
+void simple_autonomous(){
 	wait1Msec(500);
 // on close edge of tile drive_inches(14.5); // works
 	drive_inches(14.5);
@@ -61,7 +68,7 @@ void simple_autonomous() {
 	reverse_until_bumpers(); // WOULD BE FUCKING AWESOME IF ROBOTC HAD FUNCTION POINTERS!
 	// stay put for 4 seconds while the hook lowers!
 	wait1Msec(4000);
-	drive_inches_slow(2);
+	// drive_inches_slow(2);
 
 	motor_set(0, 0);
 

@@ -6,7 +6,7 @@ void go_to_point(float x, float y){
 	float heading = heading_to_dxdy(dx, dy);
 
 	float dist = dist_to_dxdy(dx, dy);
-	
+
 	float godx = (dist - 8) * cosDegrees(heading);
 	float gody = (dist - 8) * sinDegrees(heading);
 
@@ -27,7 +27,7 @@ void get_balls_at_point(float x, float y){
 	float heading = heading_to_dxdy(dx, dy);
 
 	float dist = dist_to_dxdy(dx, dy);
-	
+
 	float godx = (dist - 8) * cosDegrees(heading);
 	float gody = (dist - 8) * sinDegrees(heading);
 
@@ -50,12 +50,12 @@ float heading_to_dxdy(float dx, float dy){
 
 	float heading;
 	if(abs(dx) == 0.0){
-		heading = 90;
+		heading = 90.0;
 	} else {
-		heading = acos(dx/dist) * 180 / PI;
+		heading = acos(dx/dist) * 180.0 / PI;
 	}
 
-	if(dy < 0)
+	if(dy < 0.0)
 		heading = -heading;
 
 	return heading;

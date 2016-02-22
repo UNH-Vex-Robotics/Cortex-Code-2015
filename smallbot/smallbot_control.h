@@ -28,7 +28,7 @@ const int TOP_INTAKE_IN_SPEED  = -127;
 
 const int DRIVE_WHEEL_CIRC = 10.375; //in inches
 
-const float GYRO_TICKS_PER_DEGREE = 10.0;
+const int GYRO_TICKS_PER_DEGREE = 10;
 
 // Various robotly functions
 void motor_set(int right, int left);
@@ -52,4 +52,3 @@ float gyro_ticks_to_degrees(int ticks);
 
 int bumperswitch_get_left();
 int bumperswitch_get_right();
-
