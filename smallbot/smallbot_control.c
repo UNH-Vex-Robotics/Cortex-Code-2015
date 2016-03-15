@@ -16,6 +16,10 @@ void motor_set(int right, int left){
 	motor[LeftDriveMotorRear]   = left;
 }
 
+void arcade_drive(int x, int y){
+	motor_set(y+x, y-x);
+}
+
 int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMotorMiddle); }
 int motor_get_right_encoder(){ return nMotorEncoder(RightDriveMotorMiddle); }
 

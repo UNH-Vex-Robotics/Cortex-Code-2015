@@ -113,7 +113,8 @@ task autonomous() {
 task usercontrol() {
 	while (true) {
 		// Drive motors
-		motor_set(vexRT[Ch2], vexRT[Ch3]);
+		arcade_drive(vexRT[Ch1], vexRT[Ch2]);
+		// motor_set(vexRT[Ch2], vexRT[Ch3]);
 
 		// Top intake
 		top_intake_set((vexRT[Btn5U] - vexRT[Btn5D]) * TOP_INTAKE_IN_SPEED);
