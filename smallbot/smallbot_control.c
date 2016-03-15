@@ -17,6 +17,12 @@ void motor_set(int right, int left){
 }
 
 void arcade_drive(int x, int y){
+	int r = y-x, l = y+x;
+	int max = abs(r) > abs(l) ? abs(r) : abs(l);
+	if(max){
+		r = ((float)r) * 128.0/max;
+		l = ((float)l) * 128.0/max;
+	}
 	motor_set(y-x, y+x);
 }
 
