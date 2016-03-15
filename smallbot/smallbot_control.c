@@ -17,7 +17,7 @@ void motor_set(int right, int left){
 }
 
 void arcade_drive(int x, int y){
-	motor_set(y+x, y-x);
+	motor_set(y-x, y+x);
 }
 
 int motor_get_left_encoder(){ return nMotorEncoder(LeftDriveMotorMiddle); }
