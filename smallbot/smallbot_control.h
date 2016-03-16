@@ -32,6 +32,7 @@ const int GYRO_TICKS_PER_DEGREE = 10;
 
 // Various robotly functions
 void motor_set(int right, int left);
+void arcade_drive(int x, int y);
 
 int motor_get_left_encoder();
 int motor_get_right_encoder();
