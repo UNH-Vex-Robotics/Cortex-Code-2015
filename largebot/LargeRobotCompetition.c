@@ -107,7 +107,7 @@ task usercontrol() {
 
 		if(vexRT[Btn7U])
 			shooter_motor_set(shooter_get_target_speed());
-		else if(vexRT[Btn7U])
+		else if(vexRT[Btn7D])
 			shooter_motor_set(0);
 
 		winch_set(vexRT[Btn8U] * -WINCH_UP_SPEED + vexRT[Btn8D] * WINCH_UP_SPEED); // yes, this does NOT ues WINCH_DOWN_SPEED, because then there would be a posibilty that both buttons -> movement
